@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@layer base {
+  :root {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 96%;
+
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 96%;
+
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 96%;
+
+    --primary: 210 100% 56%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 96%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 55%;
+
+    --accent: 174 72% 50%;
+    --accent-foreground: 0 0% 4%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 16%;
+    --input: 0 0% 16%;
+    --ring: 210 100% 56%;
+
+    --radius: 0.75rem;
+
+    --gradient-primary: linear-gradient(135deg, hsl(210 100% 56%), hsl(174 72% 50%));
+    --gradient-glow: linear-gradient(135deg, hsl(210 100% 56% / 0.15), hsl(174 72% 50% / 0.15));
+    --shadow-glow: 0 0 40px hsl(210 100% 56% / 0.2);
+
+    --sidebar-background: 0 0% 7%;
+    --sidebar-foreground: 0 0% 96%;
+    --sidebar-primary: 210 100% 56%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 12%;
+    --sidebar-accent-foreground: 0 0% 96%;
+    --sidebar-border: 0 0% 16%;
+    --sidebar-ring: 210 100% 56%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+@layer utilities {
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-primary);
+  }
+
+  .gradient-bg {
+    background-image: var(--gradient-primary);
+  }
+
+  .gradient-glow {
+    background-image: var(--gradient-glow);
+  }
+
+  .glow-shadow {
+    box-shadow: var(--shadow-glow);
+  }
+}
