@@ -1,57 +1,20 @@
-import { CheckCircle2 } from "lucide-react";
-
-const points = [
-  "Tajribali va professional jamoa",
-  "Zamonaviy texnologiyalar bilan ishlash",
-  "Mijozlarga individual yondashuv",
-  "Tez va sifatli natijalar",
+const principles = [
+  { name: "Direct access", description: "The people making the work stay close to the people making the decisions." },
+  { name: "Durable systems", description: "We favour foundations that can be understood, maintained, and extended over time." },
+  { name: "Clear ownership", description: "Responsibilities and next steps are made explicit so the work can move forward with confidence." },
 ];
 
-const About = () => {
-  return (
-    <section id="biz-haqimizda" className="py-24 px-4">
-      <div className="container">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-              Nima uchun <span className="gradient-text">VDG</span>?
-            </h2>
-            <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-              Biz texnologiyani oddiy va tushunarli qilishga intilamiz. Har bir loyiha orqali
-              mijozlarimizning kundalik hayotini yengillashtirish — bizning asosiy maqsadimiz.
-            </p>
-            <ul className="space-y-4">
-              {points.map((point) => (
-                <li key={point} className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-accent shrink-0" />
-                  <span className="text-foreground">{point}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+const About = () => (
+  <section id="studio" className="border-b section-rule py-20 md:py-28">
+    <div className="page-canvas">
+      <div className="grid gap-6 border-b section-rule pb-6 md:grid-cols-2 md:items-end"><div><p className="section-label text-[#71717a]">03 / Studio</p><h2 className="font-display mt-3 text-3xl font-medium tracking-[-0.02em] md:text-[40px]">Small by design.</h2></div><p className="max-w-lg text-[#a1a1aa]">VDG is an independent product and engineering studio based in Andijan, Uzbekistan. We collaborate directly with the people responsible for the work.</p></div>
 
-          <div className="relative">
-            <div className="rounded-2xl bg-card border border-border p-10 text-center">
-              <div className="grid grid-cols-2 gap-8">
-                {[
-                  { value: "50+", label: "Loyihalar" },
-                  { value: "30+", label: "Mijozlar" },
-                  { value: "5+", label: "Yillik tajriba" },
-                  { value: "24/7", label: "Qo'llab-quvvatlash" },
-                ].map((stat) => (
-                  <div key={stat.label}>
-                    <div className="text-3xl sm:text-4xl font-bold gradient-text mb-1">{stat.value}</div>
-                    <div className="text-muted-foreground text-sm">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="absolute -z-10 inset-0 rounded-2xl bg-primary/5 blur-xl translate-x-4 translate-y-4" />
-          </div>
-        </div>
+      <div className="studio-layout">
+        <div className="studio-anchor registration-mark" role="img" aria-label="Typographic composition representing VDG's operating principles: direct access, durable systems, and clear ownership."><span className="section-label studio-anchor-index">VDG / OPERATING PRINCIPLES</span><p>Direct</p><p>Durable</p><p>Clear</p><span className="studio-anchor-rule" /><span className="studio-anchor-note">Designed for the work ahead.</span></div>
+        <div className="studio-content"><p className="font-display text-2xl leading-tight tracking-[-0.02em] text-[#f5f5f3] md:text-[28px]">A closer working relationship leaves less room for ambiguity.</p><ul className="studio-principles">{principles.map((principle, index) => <li key={principle.name} className="studio-principle"><span className="section-label text-[#71717a]">0{index + 1}</span><div><h3 className="font-display text-xl font-medium">{principle.name}</h3><p>{principle.description}</p></div></li>)}</ul><div className="studio-context"><span className="section-label text-[#71717a]">Collaboration</span><p>Based in Andijan, Uzbekistan. Working together in the way the project needs: in person, remotely, or across both.</p></div></div>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default About;

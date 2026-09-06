@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300..800;1,300..800&amp;family=JetBrains+Mono:ital,wght@0,400..700;1,400..700&amp;family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-secondary-fixed": "#1a1b22", "surface-container": "#201f21", "on-tertiary-fixed": "#1b1b22", "on-secondary-container": "#b4b4bd", "primary-fixed": "#dee0ff", "primary-container": "#4361ff", "inverse-on-surface": "#313032", "surface-bright": "#39393b", "outline-variant": "#444656", "tertiary-fixed-dim": "#c7c5cf", "surface-container-highest": "#353437", "tertiary-fixed": "#e4e1eb", "on-secondary-fixed-variant": "#45464e", "secondary-fixed": "#e2e1eb", "surface-container-low": "#1c1b1d", "surface-dim": "#131315", "on-surface-variant": "#c4c5d8", "on-error": "#690005", "on-tertiary": "#303037", "on-primary-fixed": "#00105c", "surface-container-high": "#2a2a2c", "on-error-container": "#ffdad6", "on-secondary": "#2f3037", "secondary-container": "#45464e", "secondary": "#c6c6cf", "outline": "#8e8fa1", "on-background": "#e5e1e4", "surface-variant": "#353437", "tertiary": "#c7c5cf", "on-primary": "#001e91", "secondary-fixed-dim": "#c6c6cf", "on-primary-fixed-variant": "#002eca", "primary": "#bac3ff", "surface": "#131315", "error": "#ffb4ab", "inverse-primary": "#284aea", "on-primary-container": "#fbf8ff", "inverse-surface": "#e5e1e4", "surface-container-lowest": "#0e0e10", "primary-fixed-dim": "#bac3ff", "background": "#131315", "surface-tint": "#bac3ff", "on-surface": "#e5e1e4", "tertiary-container": "#73727a", "error-container": "#93000a", "on-tertiary-fixed-variant": "#46464e", "on-tertiary-container": "#fcf9ff" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-2xl": "3rem", "space-3xs": "0.125rem", "space-xs": "0.5rem", "space-3xl": "4rem", "gutter-desktop": "1.5rem", "margin-mobile": "1.25rem", "space-4xl": "6rem", "space-2xs": "0.25rem", "space-md": "1rem", "space-sm": "0.75rem", "space-xl": "2rem", "gutter-mobile": "1rem", "space-5xl": "8rem", "space-lg": "1.5rem", "margin-desktop": "3rem" }, "fontFamily": { "display-hero-mobile": ["Space Grotesk"], "body-lg": ["Hanken Grotesk"], "headline-xl-mobile": ["Space Grotesk"], "headline-sm": ["Space Grotesk"], "display-hero": ["Space Grotesk"], "headline-xl": ["Space Grotesk"], "headline-lg-mobile": ["Space Grotesk"], "label-mono-sm": ["JetBrains Mono"], "body-sm": ["Hanken Grotesk"], "headline-lg": ["Space Grotesk"], "label-mono-md": ["JetBrains Mono"], "body-md": ["Hanken Grotesk"], "headline-md": ["Space Grotesk"] }, "fontSize": { "display-hero-mobile": ["44px", { "lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "600" }], "body-lg": ["18px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "400" }], "headline-xl-mobile": ["36px", { "lineHeight": "42px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "headline-sm": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "display-hero": ["84px", { "lineHeight": "92px", "letterSpacing": "-0.04em", "fontWeight": "600" }], "headline-xl": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "600" }], "headline-lg-mobile": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "500" }], "label-mono-sm": ["11px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "500" }], "body-sm": ["13px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }], "headline-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "500" }], "label-mono-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.04em", "fontWeight": "500" }], "body-md": ["15px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }], "headline-md": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "500" }] } } } };</script></head><body class="bg-background font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col"><header class="fixed top-0 left-0 right-0 z-50 bg-surface/80 backdrop-blur-md border-b border-outline-variant/30"><div class="h-20 w-full max-w-[1440px] mx-auto px-margin-mobile lg:px-margin-desktop flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md"><a class="flex items-center gap-space-sm group focus:outline-none" data-path="overview" href="#"><img alt="VDG Brand Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Uu5Fqi-0DmIXy3Y3iobECKQYmjteRuE4QnhaoNj3wD4tP7UhUa4T1KA2ohQGEU6qhf-K_VpXEsm9OgpVHJYx9LYXLAFx8X1q-T7dkCAqgA0xa8B2LXvA72QJruJ5KtCAiJw9TDJ6Mo37z4V-MoKH6ZFy_vBlXoiW4l6gpNNf8kxzT6tGiGUHIlw-2U2aCjpmvSAl5QUYhqPZkfxnfZZC3qfb9dKToUq1aW6SMO_nOacRjvehG2edLldtmO"/><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight uppercase group-hover:text-primary transition-colors duration-150">VDG</span></a></div><nav class="hidden md:flex items-center gap-space-xl" data-active-classes="text-on-surface border-b-2 border-primary-container"><a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors py-space-xs" data-path="services" href="#services">Services</a><a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors py-space-xs" data-path="work" href="#work">Work</a><a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors py-space-xs" data-path="about" href="#about">About</a><a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors py-space-xs" data-path="process" href="#process">Process</a><a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors py-space-xs" data-path="contact" href="#contact">Contact</a></nav><div class="flex items-center gap-space-md"><a class="hidden sm:inline-flex items-center justify-center px-space-lg py-space-xs bg-primary-container text-on-primary-container font-headline-sm text-body-sm font-medium rounded-lg hover:brightness-110 transition-all duration-150 shadow-[0_0_20px_rgba(67,97,255,0.25)]" data-path="contact" href="#contact">Start a Project</a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><button aria-label="Open navigation menu" class="md:hidden flex items-center justify-center w-10 h-10 text-on-surface hover:text-primary transition-colors focus:outline-none" type="button"><span class="material-symbols-outlined text-[24px]">menu</span></button></div></div></header><main class="w-full pt-20 bg-background flex-1"><div class="flex flex-col w-full">
+<!-- Keyframe Utilities for Kinetic Architectural Geometry -->
+<style>
+    @keyframes vdgFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(1deg); }
+    }
+    @keyframes vdgDrift {
+      0%, 100% { transform: translate(0px, 0px); }
+      50% { transform: translate(8px, -14px); }
+    }
+    @keyframes vdgPulseBeam {
+      0%, 100% { opacity: 0.35; }
+      50% { opacity: 0.85; }
+    }
+    .animate-vdg-float { animation: vdgFloat 8s ease-in-out infinite; }
+    .animate-vdg-drift { animation: vdgDrift 11s ease-in-out infinite; }
+    .animate-vdg-beam { animation: vdgPulseBeam 4s ease-in-out infinite; }
+  </style>
+<!-- HERO SECTION -->
+<section class="relative w-full overflow-hidden border-b border-outline-variant/30 bg-surface">
+<!-- Architectural Grid Canvas Background -->
+<div class="absolute inset-0 pointer-events-none opacity-20 bg-[linear-gradient(to_right,#444656_1px,transparent_1px),linear-gradient(to_bottom,#444656_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
+<!-- Ambient Blue Voltage Flare -->
+<div class="absolute -top-40 -left-32 w-96 h-96 rounded-full bg-primary-container/20 blur-[120px] pointer-events-none"></div>
+<div class="absolute top-1/2 right-0 w-[500px] h-[500px] rounded-full bg-primary-container/10 blur-[160px] pointer-events-none"></div>
+<div class="relative w-full max-w-[1440px] mx-auto px-margin-mobile lg:px-margin-desktop py-space-3xl lg:py-space-5xl">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-2xl items-center">
+<!-- Hero Editorial Content -->
+<div class="lg:col-span-7 flex flex-col gap-space-xl">
+<!-- Monogram Tag Badge -->
+<div class="inline-flex items-center gap-space-sm self-start px-space-sm py-space-3xs bg-surface-container border border-outline-variant/50 rounded-DEFAULT">
+<span class="w-2 h-2 rounded-full bg-primary-container shadow-[0_0_8px_#4361ff]"></span>
+<span class="font-label-mono-sm text-label-mono-sm text-on-surface-variant uppercase tracking-wider">Independent Digital Engineering Studio</span>
+</div>
+<!-- Hero Display Typography -->
+<div class="flex flex-col gap-space-md">
+<h1 class="font-display-hero text-headline-xl lg:text-display-hero text-on-surface tracking-tight leading-[1.05]">
+              We build digital <span class="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-on-surface via-primary-fixed to-primary">products</span> that move businesses forward.
+            </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+              Vodiy Digital Group turns ambitious ideas into websites, applications, and custom software built around your business architecture.
+            </p>
+</div>
+<!-- Interactive Action Buttons -->
+<div class="flex flex-wrap items-center gap-space-md pt-space-xs">
+<a class="inline-flex items-center justify-center gap-space-sm px-space-xl py-space-md bg-primary-container text-on-primary-container font-headline-sm text-body-md font-medium rounded-DEFAULT hover:brightness-110 shadow-[0_0_24px_rgba(67,97,255,0.35)] transition-all duration-150 group" href="#contact">
+<span>Start a Project</span>
+<span class="material-symbols-outlined text-[18px] transition-transform duration-150 group-hover:translate-x-1">arrow_forward</span>
+</a>
+<a class="inline-flex items-center justify-center gap-space-sm px-space-xl py-space-md bg-transparent border border-outline-variant/60 text-on-surface font-headline-sm text-body-md font-medium rounded-DEFAULT hover:bg-surface-container hover:border-outline transition-all duration-150" href="#services">
+<span>Explore Our Services</span>
+<span class="material-symbols-outlined text-[18px]">south_east</span>
+</a>
+</div>
+<!-- Architectural Stats Ticker -->
+<div class="pt-space-xl border-t border-outline-variant/30 grid grid-cols-3 gap-space-md max-w-lg">
+<div class="flex flex-col gap-space-3xs">
+<span class="font-headline-md text-headline-md text-on-surface">100%</span>
+<span class="font-label-mono-sm text-label-mono-sm text-outline uppercase tracking-wider">Direct Studio Craft</span>
+</div>
+<div class="flex flex-col gap-space-3xs border-l border-outline-variant/30 pl-space-md">
+<span class="font-headline-md text-headline-md text-on-surface">&lt;24h</span>
+<span class="font-label-mono-sm text-label-mono-sm text-outline uppercase tracking-wider">Audit Turnaround</span>
+</div>
+<div class="flex flex-col gap-space-3xs border-l border-outline-variant/30 pl-space-md">
+<span class="font-headline-md text-headline-md text-on-surface">99.9%</span>
+<span class="font-label-mono-sm text-label-mono-sm text-outline uppercase tracking-wider">Uptime Baseline</span>
+</div>
+</div>
+</div>
+<!-- Custom Inline Geometric VDG Monogram Composition -->
+<div class="lg:col-span-5 relative flex items-center justify-center min-h-[460px] lg:min-h-[560px]">
+<!-- Geometric Schematic Blueprint Backdrop -->
+<div class="relative w-full max-w-[480px] aspect-square flex items-center justify-center">
+<!-- Outer Precision Reticle Frame -->
+<div class="absolute inset-0 border border-outline-variant/40 rounded-xl p-space-md flex flex-col justify-between pointer-events-none">
+<div class="flex justify-between items-center text-outline">
+<span class="font-label-mono-sm text-label-mono-sm">REF: VDG-SYS.01</span>
+<span class="font-label-mono-sm text-label-mono-sm text-primary">SCALE: 1:1</span>
+</div>
+<div class="flex justify-between items-center text-outline">
+<span class="font-label-mono-sm text-label-mono-sm">41.3111° N / 69.2797° E</span>
+<span class="w-2 h-2 bg-primary-container"></span>
+</div>
+</div>
+<!-- Intersecting Structural Monogram Prisms (CSS/SVG Based) -->
+<div class="relative w-72 h-72 sm:w-88 sm:h-88 animate-vdg-float">
+<!-- Matte Surface Backing Slab -->
+<div class="absolute inset-6 bg-surface-container-high/90 border border-outline-variant/50 rounded-lg shadow-2xl backdrop-blur-md transform -rotate-3"></div>
+<!-- Primary V-Cutter Poly & Electric Accents -->
+<svg class="absolute inset-0 w-full h-full drop-shadow-[0_20px_35px_rgba(0,0,0,0.85)]" viewbox="0 0 320 320">
+<defs>
+<lineargradient id="vdgBlueGlow" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#4361FF"></stop>
+<stop offset="100%" stop-color="#284AEA"></stop>
+</lineargradient>
+<lineargradient id="vdgChromeSlab" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#353437"></stop>
+<stop offset="100%" stop-color="#1C1B1D"></stop>
+</lineargradient>
+<filter height="140%" id="electricFilter" width="140%" x="-20%" y="-20%">
+<fegaussianblur result="blur" stddeviation="6"></fegaussianblur>
+<fecomposite in="SourceGraphic" in2="blur" operator="over"></fecomposite>
+</filter>
+</defs>
+<!-- Blueprint Coordinate Guidelines -->
+<line opacity="0.4" stroke="#444656" stroke-dasharray="4 4" stroke-width="1" x1="20" x2="300" y1="160" y2="160"></line>
+<line opacity="0.4" stroke="#444656" stroke-dasharray="4 4" stroke-width="1" x1="160" x2="160" y1="20" y2="300"></line>
+<circle cx="160" cy="160" fill="none" opacity="0.25" r="120" stroke="#444656" stroke-width="1"></circle>
+<!-- Left V-Anchor (Architectural Chamfer) -->
+<polygon fill="url(#vdgChromeSlab)" points="40,60 90,60 140,240 100,240" stroke="#444656" stroke-width="1.5"></polygon>
+<!-- Signature Electric Blue Accent Blade (from VDG Logo) -->
+<polygon fill="url(#vdgBlueGlow)" filter="url(#electricFilter)" opacity="0.95" points="75,80 95,80 135,230 115,230"></polygon>
+<!-- D & G Kinetic Framing Blocks -->
+<polygon fill="#201F21" points="120,60 260,60 240,110 140,110" stroke="#444656" stroke-width="1"></polygon>
+<polygon fill="url(#vdgChromeSlab)" points="190,130 270,130 250,240 150,240 170,195 210,195 220,165 175,165" stroke="#444656" stroke-width="1.5"></polygon>
+<!-- Floating 45-degree Blue Slash (VDG Upper Apostrophe Accent) -->
+<polygon class="animate-vdg-drift" fill="url(#vdgBlueGlow)" filter="url(#electricFilter)" points="195,50 225,50 205,85 175,85"></polygon>
+<!-- Precision Vector Nodes -->
+<circle cx="40" cy="60" fill="#BAC3FF" r="3"></circle>
+<circle cx="140" cy="240" fill="#4361FF" r="3"></circle>
+<circle cx="270" cy="130" fill="#BAC3FF" r="3"></circle>
+<circle cx="250" cy="240" fill="#BAC3FF" r="3"></circle>
+</svg>
+<!-- Floating Micro Glass Card -->
+<div class="absolute -bottom-6 -left-6 px-space-md py-space-sm bg-surface-container-highest/80 backdrop-blur-md border border-outline-variant/60 rounded-DEFAULT shadow-xl flex items-center gap-space-sm animate-vdg-drift">
+<span class="material-symbols-outlined text-primary text-[18px]">verified</span>
+<div class="flex flex-col">
+<span class="font-label-mono-sm text-[10px] text-outline uppercase">Stack Verification</span>
+<span class="font-headline-sm text-body-sm text-on-surface">Zero Technical Debt</span>
+</div>
+</div>
+<!-- Upper-Right Spec Micro Card -->
+<div class="absolute -top-4 -right-4 px-space-md py-space-xs bg-surface-container-low border border-primary-container/40 rounded-DEFAULT shadow-lg flex items-center gap-space-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-vdg-beam"></span>
+<span class="font-label-mono-sm text-[10px] text-primary uppercase tracking-wider">Production Spec: Stable</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 01 / SERVICES SECTION -->
+<section class="w-full bg-surface-container-lowest border-b border-outline-variant/30 py-space-4xl lg:py-space-5xl" id="services">
+<div class="w-full max-w-[1440px] mx-auto px-margin-mobile lg:px-margin-desktop">
+<!-- Section Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-lg mb-space-3xl pb-space-lg border-b border-outline-variant/30">
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-mono-sm text-label-mono-sm text-primary uppercase tracking-widest flex items-center gap-space-xs">
+<span class="w-3 h-px bg-primary"></span>
+            01 / CAPABILITIES
+          </span>
+<h2 class="font-headline-lg text-headline-md lg:text-headline-lg text-on-surface">
+            Services engineered for scale &amp; precision
+          </h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">
+          Modular, modern technical execution spanning consumer-grade frontend experiences to mission-critical backend topologies.
+        </p>
+</div>
+<!-- Asymmetric Editorial Services Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-space-lg">
+<!-- Service 1: Website Development (Span 7) -->
+<article class="lg:col-span-7 bg-surface border border-outline-variant/40 rounded-lg p-space-xl flex flex-col justify-between group hover:border-primary-container/80 transition-all duration-200">
+<div>
+<div class="flex items-center justify-between mb-space-xl">
+<!-- Custom Angular Icon -->
+<div class="w-12 h-12 rounded bg-surface-container-high border border-outline-variant/50 flex items-center justify-center text-primary group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[24px]">terminal</span>
+</div>
+<span class="font-label-mono-sm text-label-mono-sm text-outline">CAP.01</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-space-sm group-hover:text-primary transition-colors">
+              Website Development
+            </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-xl leading-relaxed">
+              High-performance web applications, headless architectures, and brand flagship platforms. Engineered for sub-second load times, dynamic content modeling, and enterprise accessibility.
+            </p>
+</div>
+<div class="flex flex-wrap gap-space-xs pt-space-md border-t border-outline-variant/30">
+<span class="font-label-mono-sm text-label-mono-sm px-space-sm py-space-3xs bg-surface-container text-on-surface-variant rounded">Next.js / SSR</span>
+<span class="font-label-mono-sm text-label-mono-sm px-space-sm py-space-3xs bg-surface-container text-on-surface-variant rounded">Headless CMS</span>
+<span class="font-label-mono-sm text-label-mono-sm px-space-sm py-space-3xs bg-surface-container text-on-surface-variant rounded">WebGL Micro-Interactions</span>
+<span class="font-label-mono-sm text-label-mono-sm px-space-sm py-space-3xs bg-surface-container text-on-surface-variant rounded">Core Web Vitals 98+</span>
+</div>
+</article>
+<!-- Service 2: Mobile Applications (Span 5) -->
+<article class="lg:col-span-5 bg-surface border border-outline-variant/40 rounded-lg p-space-xl flex flex-col justify-between group hover:border-primary-container/80 transition-all duration-200">
+<div>
+<div class="flex items-center justify-between mb-space-xl">
+<div class="w-12 h-12 rounded bg-surface-container-high border border-outline-variant/50 flex items-center justify-center text-primary group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[24px]">devices</span>
+</div>
+<span class="font-label-mono-sm text-label-mono-sm text-outline">CAP.02</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-space-sm group-hover:text-primary transition-colors">
+              Mobile Applications
+            </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-xl leading-relaxed">
+              iOS and Android native and cross-platform mobile products. Crafted with 120Hz micro-haptics, persistent offline-first synchronizations, and hardware-level telemetry.
+            </p>
+</div>
+<div class="flex flex-wrap gap-space-xs pt-space-md border-t border-outline-variant/30">
+<span class="font-label-mono-sm text-label-mono-sm px-space-sm py-space-3xs bg-surface-container text-on-surface-variant rounded">React Native</span>
+<span class="font-label-mono-sm text-label-mono-sm px-space-sm py-space-3xs bg-surface-container text-on-surface-variant rounded">Swift / Kotlin</span>
+<span class="font-label-mono-sm text-label-mono-sm px-space-sm py-space-3xs bg-surface-container text-on-surface-variant rounded">Offline Sync</span>
+</div>
+</article>
+<!-- Service 3: Custom Software (Span 4) -->
+<article class="lg:col-span-4 bg-surface border border-outline-variant/40 rounded-lg p-space-xl flex flex-col justify-between group hover:border-primary-container/80 transition-all duration-200">
+<div>
+<div class="flex items-center justify-between mb-space-xl">
+<div class="w-12 h-12 rounded bg-surface-container-high border border-outline-variant/50 flex items-center justify-center text-primary group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[24px]">developer_board</span>
+</div>
+<span class="font-label-mono-sm text-label-mono-sm text-outline">CAP.03</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-space-sm group-hover:text-primary transition-colors">
+              Custom Software
+            </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-xl leading-relaxed">
+              Resilient enterprise management platforms, distributed backends, scalable GraphQL &amp; REST pipelines, and sovereign cloud infrastructure.
+            </p>
+</div>
+<div class="flex flex-wrap gap-space-xs pt-space-md border-t border-outline-variant/30">
+<span class="font-label-mono-sm text-label-mono-sm px-space-sm py-space-3xs bg-surface-container text-on-surface-variant rounded">Distributed Microservices</span>
+<span class="font-label-mono-sm text-label-mono-sm px-space-sm py-space-3xs bg-surface-container text-on-surface-variant rounded">Kubernetes</span>
+<span class="font-label-mono-sm text-label-mono-sm px-space-sm py-space-3xs bg-surface-container text-on-surface-variant rounded">PostgreSQL</span>
+</div>
+</article>
+<!-- Service 4: UI/UX Design (Span 4) -->
+<article class="lg:col-span-4 bg-surface border border-outline-variant/40 rounded-lg p-space-xl flex flex-col justify-between group hover:border-primary-container/80 transition-all duration-200">
+<div>
+<div class="flex items-center justify-between mb-space-xl">
+<div class="w-12 h-12 rounded bg-surface-container-high border border-outline-variant/50 flex items-center justify-center text-primary group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[24px]">architecture</span>
+</div>
+<span class="font-label-mono-sm text-label-mono-sm text-outline">CAP.04</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-space-sm group-hover:text-primary transition-colors">
+              UI/UX Design Systems
+            </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-xl leading-relaxed">
+              Mathematical design systems, product ergonomics, dark-mode technical interfaces, and user journey optimization grounded in cognitive clarity.
+            </p>
+</div>
+<div class="flex flex-wrap gap-space-xs pt-space-md border-t border-outline-variant/30">
+<span class="font-label-mono-sm text-label-mono-sm px-space-sm py-space-3xs bg-surface-container text-on-surface-variant rounded">Tokenized Systems</span>
+<span class="font-label-mono-sm text-label-mono-sm px-space-sm py-space-3xs bg-surface-container text-on-surface-variant rounded">Figma Architecture</span>
+<span class="font-label-mono-sm text-label-mono-sm px-space-sm py-space-3xs bg-surface-container text-on-surface-variant rounded">Audited Prototypes</span>
+</div>
+</article>
+<!-- Service 5: Business Automation (Span 4) -->
+<article class="lg:col-span-4 bg-surface border border-outline-variant/40 rounded-lg p-space-xl flex flex-col justify-between group hover:border-primary-container/80 transition-all duration-200">
+<div>
+<div class="flex items-center justify-between mb-space-xl">
+<div class="w-12 h-12 rounded bg-surface-container-high border border-outline-variant/50 flex items-center justify-center text-primary group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[24px]">bolt</span>
+</div>
+<span class="font-label-mono-sm text-label-mono-sm text-outline">CAP.05</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-space-sm group-hover:text-primary transition-colors">
+              Business Automation
+            </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-xl leading-relaxed">
+              Internal operational tooling, event-driven data flows, AI ingestion pipelines, and third-party ERP/CRM integration to eliminate friction.
+            </p>
+</div>
+<div class="flex flex-wrap gap-space-xs pt-space-md border-t border-outline-variant/30">
+<span class="font-label-mono-sm text-label-mono-sm px-space-sm py-space-3xs bg-surface-container text-on-surface-variant rounded">Webhook Brokers</span>
+<span class="font-label-mono-sm text-label-mono-sm px-space-sm py-space-3xs bg-surface-container text-on-surface-variant rounded">ETL Automation</span>
+<span class="font-label-mono-sm text-label-mono-sm px-space-sm py-space-3xs bg-surface-container text-on-surface-variant rounded">API Middleware</span>
+</div>
+</article>
+</div>
+</div>
+</section>
+<!-- 02 / SELECTED WORK / CASE ARCHIVE -->
+<section class="w-full bg-surface border-b border-outline-variant/30 py-space-4xl lg:py-space-5xl" id="work">
+<div class="w-full max-w-[1440px] mx-auto px-margin-mobile lg:px-margin-desktop">
+<!-- Section Header with Technical Notice -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-3xl pb-space-lg border-b border-outline-variant/30">
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-mono-sm text-label-mono-sm text-primary uppercase tracking-widest flex items-center gap-space-xs">
+<span class="w-3 h-px bg-primary"></span>
+            02 / CASE ARCHIVE
+          </span>
+<h2 class="font-headline-lg text-headline-md lg:text-headline-lg text-on-surface">
+            Selected Work
+          </h2>
+</div>
+<div class="inline-flex items-center gap-space-xs px-space-sm py-space-3xs bg-surface-container border border-outline-variant/40 rounded">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+<span class="font-label-mono-sm text-[11px] text-outline uppercase tracking-wider">Placeholder Case Studies for Demonstration</span>
+</div>
+</div>
+<!-- Case Studies Stack -->
+<div class="flex flex-col gap-space-3xl">
+<!-- Case 01: Kinetix Fleet OS -->
+<article class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl p-space-xl bg-surface-container-low border border-outline-variant/40 rounded-xl hover:border-outline transition-all duration-200">
+<div class="lg:col-span-5 flex flex-col justify-between">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-mono-sm text-label-mono-sm text-primary uppercase">Alpha // 01</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="font-label-mono-sm text-label-mono-sm text-outline uppercase">Logistics &amp; IoT</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">
+                Kinetix Fleet OS
+              </h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                Re-engineered the central dispatch workflow for an enterprise freight network. Replaced an asynchronous manual ticketing infrastructure with a sub-second WebSocket telemetry dashboard tracking 12,000+ active transit units.
+              </p>
+<!-- Metric Display Node -->
+<div class="mt-space-md p-space-md bg-surface-container border-l-2 border-primary rounded-r">
+<span class="font-label-mono-sm text-label-mono-sm text-outline uppercase block">Architecture Benchmark</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">Replaced legacy dispatch stack with real-time telemetry</span>
+</div>
+</div>
+<div class="flex flex-wrap gap-space-xs pt-space-xl">
+<span class="font-label-mono-sm text-label-mono-sm px-space-sm py-space-3xs bg-surface-container-high text-on-surface-variant rounded">Custom Enterprise Software</span>
+<span class="font-label-mono-sm text-label-mono-sm px-space-sm py-space-3xs bg-surface-container-high text-on-surface-variant rounded">Rust &amp; Go Engine</span>
+<span class="font-label-mono-sm text-label-mono-sm px-space-sm py-space-3xs bg-surface-container-high text-on-surface-variant rounded">Leaflet GIS</span>
+</div>
+</div>
+<!-- Architectural Wireframe Dashboard Mockup -->
+<div class="lg:col-span-7 bg-surface-container-lowest border border-outline-variant/50 rounded-lg p-space-md flex flex-col gap-space-md">
+<!-- Simulated Frame Window Header -->
+<div class="flex items-center justify-between pb-space-xs border-b border-outline-variant/30">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-outline-variant/40"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-outline-variant/40"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-outline-variant/40"></span>
+<span class="font-label-mono-sm text-[10px] text-outline ml-space-xs">kinetix-telemetry.sys/live</span>
+</div>
+<span class="font-label-mono-sm text-[10px] text-primary flex items-center gap-space-3xs">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                12,482 NODES ACTIVE
+              </span>
+</div>
+<!-- Inner Mockup UI Canvas -->
+<div class="grid grid-cols-3 gap-space-sm">
+<div class="p-space-sm bg-surface-container rounded border border-outline-variant/30 flex flex-col">
+<span class="font-label-mono-sm text-[10px] text-outline uppercase">Global Dispatch Latency</span>
+<span class="font-headline-sm text-headline-sm text-on-surface mt-space-3xs">18.4 ms</span>
+<span class="font-label-mono-sm text-[10px] text-primary mt-space-3xs">↓ 94% reduction</span>
+</div>
+<div class="p-space-sm bg-surface-container rounded border border-outline-variant/30 flex flex-col">
+<span class="font-label-mono-sm text-[10px] text-outline uppercase">Fleet Throughput</span>
+<span class="font-headline-sm text-headline-sm text-on-surface mt-space-3xs">99.98%</span>
+<span class="font-label-mono-sm text-[10px] text-outline mt-space-3xs">Zero packet loss</span>
+</div>
+<div class="p-space-sm bg-surface-container rounded border border-outline-variant/30 flex flex-col">
+<span class="font-label-mono-sm text-[10px] text-outline uppercase">Routing Efficiency</span>
+<span class="font-headline-sm text-headline-sm text-on-surface mt-space-3xs">+32.6%</span>
+<span class="font-label-mono-sm text-[10px] text-primary mt-space-3xs">Optimal paths</span>
+</div>
+</div>
+<!-- Interactive Telemetry Vector Visualization -->
+<div class="h-44 bg-surface rounded border border-outline-variant/30 p-space-sm flex flex-col justify-between relative overflow-hidden">
+<div class="flex justify-between items-center text-outline font-label-mono-sm text-[10px]">
+<span>STREAM: VECTOR_ACCEL_CLUSTER_04</span>
+<span>POLLED IN 10MS INTERVALS</span>
+</div>
+<!-- Telemetry SVG Pulse Sparkline -->
+<svg class="w-full h-24 text-primary" preserveaspectratio="none" viewbox="0 0 600 100">
+<path d="M0,70 L60,65 L120,40 L180,55 L240,25 L300,60 L360,15 L420,35 L480,45 L540,10 L600,28" fill="none" stroke="currentColor" stroke-width="2"></path>
+<path d="M0,70 L60,65 L120,40 L180,55 L240,25 L300,60 L360,15 L420,35 L480,45 L540,10 L600,28 L600,100 L0,100 Z" fill="currentColor" opacity="0.12"></path>
+</svg>
+<div class="flex justify-between items-center text-outline font-label-mono-sm text-[10px]">
+<span class="text-on-surface">SYSTEM_HEALTH: NOMINAL</span>
+<span>BUFFER: 0.04%</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Case 02: Aura Health & Telemetry -->
+<article class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl p-space-xl bg-surface-container-low border border-outline-variant/40 rounded-xl hover:border-outline transition-all duration-200">
+<div class="lg:col-span-5 flex flex-col justify-between">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-mono-sm text-label-mono-sm text-primary uppercase">Beta // 02</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="font-label-mono-sm text-label-mono-sm text-outline uppercase">Mobile &amp; Wearables</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">
+                Aura Health &amp; Telemetry
+              </h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                Engineered a specialized biometric tracking companion app interfacing with clinical wearable sensors. Architected an offline-first SQLite synchronization engine that buffers patient metrics in disconnected environments.
+              </p>
+<div class="mt-space-md p-space-md bg-surface-container border-l-2 border-primary rounded-r">
+<span class="font-label-mono-sm text-label-mono-sm text-outline uppercase block">Architecture Benchmark</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">Sub-50ms offline sync architecture</span>
+</div>
+</div>
+<div class="flex flex-wrap gap-space-xs pt-space-xl">
+<span class="font-label-mono-sm text-label-mono-sm px-space-sm py-space-3xs bg-surface-container-high text-on-surface-variant rounded">Mobile Application</span>
+<span class="font-label-mono-sm text-label-mono-sm px-space-sm py-space-3xs bg-surface-container-high text-on-surface-variant rounded">BLE Protocol Sync</span>
+<span class="font-label-mono-sm text-label-mono-sm px-space-sm py-space-3xs bg-surface-container-high text-on-surface-variant rounded">HIPAA Compliant</span>
+</div>
+</div>
+<!-- Architectural Wireframe Mobile UI Simulation -->
+<div class="lg:col-span-7 bg-surface-container-lowest border border-outline-variant/50 rounded-lg p-space-lg flex items-center justify-center">
+<div class="w-full max-w-sm bg-surface border border-outline-variant/60 rounded-xl p-space-md flex flex-col gap-space-md shadow-2xl">
+<div class="flex justify-between items-center pb-space-xs border-b border-outline-variant/30">
+<span class="font-label-mono-sm text-label-mono-sm text-on-surface">PATIENT // #4088-B</span>
+<span class="font-label-mono-sm text-label-mono-sm text-primary">SENSOR CONNECTED</span>
+</div>
+<!-- Metric Donut Component in Pure SVG -->
+<div class="flex items-center justify-around py-space-xs">
+<div class="relative w-28 h-28 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90" viewbox="0 0 36 36">
+<path class="text-surface-container-highest" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3.5"></path>
+<path class="text-primary-container" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="88, 100" stroke-linecap="round" stroke-width="3.5"></path>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="font-headline-sm text-headline-sm text-on-surface leading-none">98.4</span>
+<span class="font-label-mono-sm text-[9px] text-outline">INDEX</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-2xs text-left">
+<span class="font-label-mono-sm text-[10px] text-outline uppercase">Cardiac Interval</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">62 BPM</span>
+<span class="font-label-mono-sm text-[10px] text-primary">VARIANCE: 1.2%</span>
+</div>
+</div>
+<!-- Sync Log Pipeline Bars -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex justify-between font-label-mono-sm text-[10px] text-outline">
+<span>PACKET BUFFER INTEGRITY</span>
+<span>100% COMPLETE</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full w-full"></div>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- Case 03: Strata Financial Core -->
+<article class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl p-space-xl bg-surface-container-low border border-outline-variant/40 rounded-xl hover:border-outline transition-all duration-200">
+<div class="lg:col-span-5 flex flex-col justify-between">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-mono-sm text-label-mono-sm text-primary uppercase">Gamma // 03</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="font-label-mono-sm text-label-mono-sm text-outline uppercase">FinTech Platform</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">
+                Strata Financial Core
+              </h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                Architected high-throughput ledger reconciliation engine processing cross-border transactional liquidity. Enforced immutable audit rails with atomic commits and multi-institution compliance gateways.
+              </p>
+<div class="mt-space-md p-space-md bg-surface-container border-l-2 border-primary rounded-r">
+<span class="font-label-mono-sm text-label-mono-sm text-outline uppercase block">Architecture Benchmark</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">High-throughput automated transaction reconciliation</span>
+</div>
+</div>
+<div class="flex flex-wrap gap-space-xs pt-space-xl">
+<span class="font-label-mono-sm text-label-mono-sm px-space-sm py-space-3xs bg-surface-container-high text-on-surface-variant rounded">Liquidity Platform</span>
+<span class="font-label-mono-sm text-label-mono-sm px-space-sm py-space-3xs bg-surface-container-high text-on-surface-variant rounded">Double-Entry Ledger</span>
+<span class="font-label-mono-sm text-label-mono-sm px-space-sm py-space-3xs bg-surface-container-high text-on-surface-variant rounded">ISO-20022 Protocols</span>
+</div>
+</div>
+<!-- Architectural Wireframe FinTech Ledger Visualization -->
+<div class="lg:col-span-7 bg-surface-container-lowest border border-outline-variant/50 rounded-lg p-space-md flex flex-col justify-between">
+<div class="flex items-center justify-between pb-space-xs border-b border-outline-variant/30">
+<span class="font-label-mono-sm text-[10px] text-outline uppercase">SETTLEMENT ENGINE: D-9 NODE CLUSTER</span>
+<span class="font-label-mono-sm text-[10px] text-on-surface">STATE: RECONCILED</span>
+</div>
+<div class="my-space-md flex flex-col gap-space-xs font-label-mono-sm text-[11px]">
+<div class="p-space-xs bg-surface-container border-l border-primary flex justify-between items-center text-on-surface">
+<span>TX_948194_BATCH_EUR</span>
+<span class="text-primary">+€1,450,200.00</span>
+<span class="text-outline text-[10px]">0.02ms commit</span>
+</div>
+<div class="p-space-xs bg-surface-container border-l border-outline-variant flex justify-between items-center text-on-surface">
+<span>TX_948195_BATCH_USD</span>
+<span class="text-primary">+$890,140.50</span>
+<span class="text-outline text-[10px]">0.01ms commit</span>
+</div>
+<div class="p-space-xs bg-surface-container border-l border-outline-variant flex justify-between items-center text-on-surface">
+<span>TX_948196_BATCH_SGD</span>
+<span class="text-primary">+S$3,210,000.00</span>
+<span class="text-outline text-[10px]">0.03ms commit</span>
+</div>
+</div>
+<div class="p-space-sm bg-surface rounded border border-outline-variant/30 flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">shield_lock</span>
+<span class="font-body-sm text-body-sm text-on-surface">Continuous Cryptographic Verification</span>
+</div>
+<span class="font-label-mono-sm text-[10px] text-primary">SHA-256 VALID</span>
+</div>
+</div>
+</article>
+</div>
+</div>
+</section>
+<!-- 03 / PHILOSOPHY & ABOUT -->
+<section class="w-full bg-surface-container-lowest border-b border-outline-variant/30 py-space-4xl lg:py-space-5xl" id="about">
+<div class="w-full max-w-[1440px] mx-auto px-margin-mobile lg:px-margin-desktop">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-3xl items-start">
+<!-- Philosophy Manifesto -->
+<div class="lg:col-span-6 flex flex-col gap-space-xl">
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-mono-sm text-label-mono-sm text-primary uppercase tracking-widest flex items-center gap-space-xs">
+<span class="w-3 h-px bg-primary"></span>
+              03 / PHILOSOPHY
+            </span>
+<h2 class="font-headline-lg text-headline-md lg:text-headline-lg text-on-surface">
+              Engineering clarity in complex domains
+            </h2>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface leading-relaxed">
+            Vodiy Digital Group is an independent IT and digital engineering collective. We partner directly with leaders and product founders to build resilient software, thoughtful user interfaces, and sustainable technical foundations through close collaboration and disciplined craft.
+          </p>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            We reject bloated agency handoffs and outsourced layers. When you collaborate with VDG, you work alongside the senior engineers and interface architects who write every line of production code and craft every viewport coordinate.
+          </p>
+<!-- Core Values Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-md pt-space-md border-t border-outline-variant/30">
+<div class="flex flex-col gap-space-2xs">
+<span class="font-headline-sm text-body-sm font-medium text-on-surface">Disciplined Engineering</span>
+<p class="font-body-sm text-body-sm text-outline">Type-safe codebases, deterministic performance, zero bloat.</p>
+</div>
+<div class="flex flex-col gap-space-2xs">
+<span class="font-headline-sm text-body-sm font-medium text-on-surface">Design Without Fluff</span>
+<p class="font-body-sm text-body-sm text-outline">Ergonomic clarity, cognitive hierarchy, mathematical grids.</p>
+</div>
+<div class="flex flex-col gap-space-2xs">
+<span class="font-headline-sm text-body-sm font-medium text-on-surface">Direct Partnership</span>
+<p class="font-body-sm text-body-sm text-outline">No account executives. Continuous visibility and accountability.</p>
+</div>
+</div>
+</div>
+<!-- Geometric Studio Standards Visual Matrix -->
+<div class="lg:col-span-6 bg-surface border border-outline-variant/40 rounded-xl p-space-xl flex flex-col gap-space-lg">
+<div class="flex items-center justify-between pb-space-sm border-b border-outline-variant/30">
+<span class="font-label-mono-sm text-label-mono-sm text-on-surface uppercase tracking-wider">VDG Technical Standards Index</span>
+<span class="font-label-mono-sm text-label-mono-sm text-primary">REV.2025</span>
+</div>
+<div class="flex flex-col divide-y divide-outline-variant/20">
+<div class="py-space-md flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-headline-sm text-body-md text-on-surface">Architectural Longevity</span>
+<span class="font-body-sm text-body-sm text-outline">Frameworks chosen for long-term LTS, stability, and maintainability.</span>
+</div>
+<span class="font-label-mono-sm text-label-mono-sm text-primary uppercase ml-space-md">100% AUDITED</span>
+</div>
+<div class="py-space-md flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-headline-sm text-body-md text-on-surface">Deterministic Ergonomics</span>
+<span class="font-body-sm text-body-sm text-outline">Every interaction is calibrated for accessibility and fluid speed.</span>
+</div>
+<span class="font-label-mono-sm text-label-mono-sm text-primary uppercase ml-space-md">WCAG 2.1 AA</span>
+</div>
+<div class="py-space-md flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-headline-sm text-body-md text-on-surface">Zero-Vendor Lock-In</span>
+<span class="font-body-sm text-body-sm text-outline">Open protocols, sovereign repositories, and clean containerized builds.</span>
+</div>
+<span class="font-label-mono-sm text-label-mono-sm text-primary uppercase ml-space-md">FULL SOVEREIGNTY</span>
+</div>
+<div class="py-space-md flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-headline-sm text-body-md text-on-surface">Performance Thresholds</span>
+<span class="font-body-sm text-body-sm text-outline">Sub-100ms TTFB metrics and aggressive static asset compression.</span>
+</div>
+<span class="font-label-mono-sm text-label-mono-sm text-primary uppercase ml-space-md">EDGE NATIVE</span>
+</div>
+</div>
+<!-- Studio Verification Emblem Box -->
+<div class="p-space-md bg-surface-container rounded flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-primary flex items-center justify-center">
+<span class="font-headline-sm text-body-sm text-on-primary font-bold">V</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface">Vodiy Digital Group Core Specification</span>
+</div>
+<span class="font-label-mono-sm text-[10px] text-outline uppercase tracking-wider">Tashkent / Global</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 04 / METHODOLOGY & PROCESS -->
+<section class="w-full bg-surface border-b border-outline-variant/30 py-space-4xl lg:py-space-5xl" id="process">
+<div class="w-full max-w-[1440px] mx-auto px-margin-mobile lg:px-margin-desktop">
+<!-- Section Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-lg mb-space-3xl pb-space-lg border-b border-outline-variant/30">
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-mono-sm text-label-mono-sm text-primary uppercase tracking-widest flex items-center gap-space-xs">
+<span class="w-3 h-px bg-primary"></span>
+            04 / METHODOLOGY
+          </span>
+<h2 class="font-headline-lg text-headline-md lg:text-headline-lg text-on-surface">
+            Four stages from ambition to execution
+          </h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">
+          A disciplined sprint pipeline designed to eliminate ambiguity, de-risk engineering choices, and guarantee predictable delivery.
+        </p>
+</div>
+<!-- Stepped Progressive Timeline Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-lg relative">
+<!-- Stage 01: Discover -->
+<div class="bg-surface-container-low border border-outline-variant/40 rounded-lg p-space-xl flex flex-col justify-between relative group hover:border-primary-container transition-all duration-150">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-headline-md text-headline-md text-primary font-semibold">01</span>
+<span class="font-label-mono-sm text-label-mono-sm px-space-xs py-space-3xs bg-surface-container text-outline rounded uppercase">Sprint 0</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Discover</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Deep technical audits, problem framing, architecture roadmapping, and scope definition to uncover hard constraints before writing code.
+            </p>
+</div>
+<div class="pt-space-lg border-t border-outline-variant/30 mt-space-xl flex flex-col gap-space-2xs">
+<span class="font-label-mono-sm text-[10px] text-outline uppercase">Deliverable</span>
+<span class="font-label-mono-sm text-label-mono-sm text-on-surface">System Architecture Spec</span>
+</div>
+</div>
+<!-- Stage 02: Design -->
+<div class="bg-surface-container-low border border-outline-variant/40 rounded-lg p-space-xl flex flex-col justify-between relative group hover:border-primary-container transition-all duration-150">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-headline-md text-headline-md text-primary font-semibold">02</span>
+<span class="font-label-mono-sm text-label-mono-sm px-space-xs py-space-3xs bg-surface-container text-outline rounded uppercase">Sprints 1-2</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Design</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Rapid wireframing, design token systems, tactile interaction prototypes, and usability validation with core stakeholders.
+            </p>
+</div>
+<div class="pt-space-lg border-t border-outline-variant/30 mt-space-xl flex flex-col gap-space-2xs">
+<span class="font-label-mono-sm text-[10px] text-outline uppercase">Deliverable</span>
+<span class="font-label-mono-sm text-label-mono-sm text-on-surface">Figma Production Tokens</span>
+</div>
+</div>
+<!-- Stage 03: Develop -->
+<div class="bg-surface-container-low border border-outline-variant/40 rounded-lg p-space-xl flex flex-col justify-between relative group hover:border-primary-container transition-all duration-150">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-headline-md text-headline-md text-primary font-semibold">03</span>
+<span class="font-label-mono-sm text-label-mono-sm px-space-xs py-space-3xs bg-surface-container text-outline rounded uppercase">Sprints 3-6</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Develop</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Clean modular codebases, test-driven pipelines, API integration, and security reviews with continuous deployment to staging.
+            </p>
+</div>
+<div class="pt-space-lg border-t border-outline-variant/30 mt-space-xl flex flex-col gap-space-2xs">
+<span class="font-label-mono-sm text-[10px] text-outline uppercase">Deliverable</span>
+<span class="font-label-mono-sm text-label-mono-sm text-on-surface">Verified Pull Requests</span>
+</div>
+</div>
+<!-- Stage 04: Launch -->
+<div class="bg-surface-container-low border border-outline-variant/40 rounded-lg p-space-xl flex flex-col justify-between relative group hover:border-primary-container transition-all duration-150">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-headline-md text-headline-md text-primary font-semibold">04</span>
+<span class="font-label-mono-sm text-label-mono-sm px-space-xs py-space-3xs bg-surface-container text-outline rounded uppercase">Release</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Launch</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Controlled canary rollout, edge telemetry monitoring, performance optimization, and comprehensive team handoff documentation.
+            </p>
+</div>
+<div class="pt-space-lg border-t border-outline-variant/30 mt-space-xl flex flex-col gap-space-2xs">
+<span class="font-label-mono-sm text-[10px] text-outline uppercase">Deliverable</span>
+<span class="font-label-mono-sm text-label-mono-sm text-on-surface">Production Orchestration</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 05 / ENGAGEMENT & CONTACT -->
+<section class="w-full bg-surface-container-lowest py-space-4xl lg:py-space-5xl relative" id="contact">
+<div class="w-full max-w-[1440px] mx-auto px-margin-mobile lg:px-margin-desktop">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-3xl items-start">
+<!-- Contact Context & Direct Details -->
+<div class="lg:col-span-5 flex flex-col gap-space-xl">
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-mono-sm text-label-mono-sm text-primary uppercase tracking-widest flex items-center gap-space-xs">
+<span class="w-3 h-px bg-primary"></span>
+              05 / ENGAGEMENT
+            </span>
+<h2 class="font-headline-lg text-headline-md lg:text-headline-lg text-on-surface">
+              Let’s build your next digital advantage.
+            </h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            Tell us about your objectives, timeline, and technical challenges. We review new project inquiries within one business day and respond with initial architecture considerations.
+          </p>
+<div class="flex flex-col gap-space-md pt-space-md border-t border-outline-variant/30">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">mail</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-mono-sm text-label-mono-sm text-outline uppercase">Direct Channel</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">contact@vodiy.group</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-mono-sm text-label-mono-sm text-outline uppercase">Studio Timezone</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">UTC+5 (Tashkent) / Global Remote</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">verified</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-mono-sm text-label-mono-sm text-outline uppercase">SLA Commitment</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">1 Business Day Evaluation</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Functional Project Inquiry Form -->
+<div class="lg:col-span-7 bg-surface border border-outline-variant/40 rounded-xl p-space-xl shadow-2xl relative">
+<form class="flex flex-col gap-space-lg" id="vdgContactForm">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<!-- Full Name Field -->
+<div class="flex flex-col gap-space-2xs">
+<label class="font-label-mono-sm text-label-mono-sm text-outline uppercase" for="clientName">First &amp; Last Name *</label>
+<input class="w-full h-11 px-space-md bg-surface-container border border-outline-variant/60 rounded-DEFAULT text-on-surface placeholder:text-outline font-body-md text-body-sm focus:outline-none focus:border-primary-container focus:shadow-[0_0_12px_rgba(67,97,255,0.25)] transition-all" id="clientName" placeholder="Alexander Vance" required="" type="text"/>
+</div>
+<!-- Work Email Field -->
+<div class="flex flex-col gap-space-2xs">
+<label class="font-label-mono-sm text-label-mono-sm text-outline uppercase" for="clientEmail">Work Email *</label>
+<input class="w-full h-11 px-space-md bg-surface-container border border-outline-variant/60 rounded-DEFAULT text-on-surface placeholder:text-outline font-body-md text-body-sm focus:outline-none focus:border-primary-container focus:shadow-[0_0_12px_rgba(67,97,255,0.25)] transition-all" id="clientEmail" placeholder="alex@enterprise.com" required="" type="email"/>
+</div>
+</div>
+<!-- Service Selection Multi-Select Pills -->
+<div class="flex flex-col gap-space-2xs">
+<span class="font-label-mono-sm text-label-mono-sm text-outline uppercase">Required Capabilities (Select Any)</span>
+<div class="flex flex-wrap gap-space-xs pt-space-3xs" id="servicePillContainer">
+<button class="service-pill px-space-sm py-space-xs bg-surface-container border border-outline-variant/60 rounded text-on-surface-variant font-label-mono-sm text-label-mono-sm transition-all hover:border-primary-container" data-val="web" type="button">Web Development</button>
+<button class="service-pill px-space-sm py-space-xs bg-surface-container border border-outline-variant/60 rounded text-on-surface-variant font-label-mono-sm text-label-mono-sm transition-all hover:border-primary-container" data-val="mobile" type="button">Mobile Applications</button>
+<button class="service-pill px-space-sm py-space-xs bg-surface-container border border-outline-variant/60 rounded text-on-surface-variant font-label-mono-sm text-label-mono-sm transition-all hover:border-primary-container" data-val="software" type="button">Custom Software</button>
+<button class="service-pill px-space-sm py-space-xs bg-surface-container border border-outline-variant/60 rounded text-on-surface-variant font-label-mono-sm text-label-mono-sm transition-all hover:border-primary-container" data-val="ux" type="button">UI/UX Design</button>
+<button class="service-pill px-space-sm py-space-xs bg-surface-container border border-outline-variant/60 rounded text-on-surface-variant font-label-mono-sm text-label-mono-sm transition-all hover:border-primary-container" data-val="automation" type="button">Automation</button>
+</div>
+</div>
+<!-- Estimated Scope / Budget Range Dropdown -->
+<div class="flex flex-col gap-space-2xs">
+<label class="font-label-mono-sm text-label-mono-sm text-outline uppercase" for="projectScope">Estimated Budget Scope</label>
+<select class="w-full h-11 px-space-md bg-surface-container border border-outline-variant/60 rounded-DEFAULT text-on-surface font-body-md text-body-sm focus:outline-none focus:border-primary-container transition-all" id="projectScope">
+<option value="15-30k">$15,000 – $30,000 (MVP / Focused Build)</option>
+<option selected="" value="30-60k">$30,000 – $60,000 (Production System)</option>
+<option value="60-120k">$60,000 – $120,000 (Multi-Platform Suite)</option>
+<option value="enterprise">$120,000+ (Enterprise Architecture Partnership)</option>
+</select>
+</div>
+<!-- Project Details Textarea -->
+<div class="flex flex-col gap-space-2xs">
+<label class="font-label-mono-sm text-label-mono-sm text-outline uppercase" for="projectDetails">Project Parameters &amp; Objectives *</label>
+<textarea class="w-full p-space-md bg-surface-container border border-outline-variant/60 rounded-DEFAULT text-on-surface placeholder:text-outline font-body-md text-body-sm focus:outline-none focus:border-primary-container focus:shadow-[0_0_12px_rgba(67,97,255,0.25)] transition-all" id="projectDetails" placeholder="Outline key deliverables, current infrastructure stack, and anticipated timeline..." required="" rows="4"></textarea>
+</div>
+<!-- Submit Button -->
+<div class="pt-space-xs">
+<button class="w-full sm:w-auto inline-flex items-center justify-center gap-space-sm px-space-2xl py-space-md bg-primary-container text-on-primary-container font-headline-sm text-body-md font-medium rounded-DEFAULT hover:brightness-110 shadow-[0_0_24px_rgba(67,97,255,0.35)] transition-all duration-150" type="submit">
+<span>Send Project Inquiry</span>
+<span class="material-symbols-outlined text-[18px]">send</span>
+</button>
+</div>
+</form>
+<!-- Interactive Client-Side Submission Toast / Modal -->
+<div class="hidden absolute inset-0 bg-surface/95 backdrop-blur-md rounded-xl p-space-2xl flex-col items-center justify-center text-center gap-space-md z-20" id="formModal">
+<div class="w-14 h-14 rounded-full bg-primary-container/20 border border-primary-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[28px]">check_circle</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Inquiry Validated</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm">
+              Demo Form: Your inquiry details are validated. In production, this directly reaches <strong class="text-on-surface">inquiries@vodiy.group</strong>.
+            </p>
+<button class="mt-space-sm px-space-lg py-space-xs bg-surface-container border border-outline-variant rounded text-body-sm text-on-surface hover:bg-surface-container-high transition-colors font-headline-sm" id="closeModalBtn" type="button">
+              Done
+            </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- INLINE CLIENT SCRIPT FOR FORM & INTERACTION -->
+<script>
+    (function() {
+      // Toggle active states on capability pills
+      var pills = document.querySelectorAll('.service-pill');
+      pills.forEach(function(pill) {
+        pill.addEventListener('click', function() {
+          var isSelected = pill.getAttribute('data-active') === 'true';
+          if (isSelected) {
+            pill.setAttribute('data-active', 'false');
+            pill.classList.remove('bg-primary-container', 'text-on-primary-container', 'border-primary-container');
+            pill.classList.add('bg-surface-container', 'text-on-surface-variant', 'border-outline-variant/60');
+          } else {
+            pill.setAttribute('data-active', 'true');
+            pill.classList.remove('bg-surface-container', 'text-on-surface-variant', 'border-outline-variant/60');
+            pill.classList.add('bg-primary-container', 'text-on-primary-container', 'border-primary-container');
+          }
+        });
+      });
+
+      // Handle Inquiry Form Submission
+      var form = document.getElementById('vdgContactForm');
+      var modal = document.getElementById('formModal');
+      var closeModalBtn = document.getElementById('closeModalBtn');
+
+      if (form && modal) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          modal.classList.remove('hidden');
+          modal.classList.add('flex');
+        });
+      }
+
+      if (closeModalBtn && modal && form) {
+        closeModalBtn.addEventListener('click', function() {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+          form.reset();
+          pills.forEach(function(p) {
+            p.setAttribute('data-active', 'false');
+            p.classList.remove('bg-primary-container', 'text-on-primary-container', 'border-primary-container');
+            p.classList.add('bg-surface-container', 'text-on-surface-variant', 'border-outline-variant/60');
+          });
+        });
+      }
+    })();
+  </script>
+</div></main><footer class="w-full bg-surface-container-lowest border-t border-outline-variant/30"><div class="w-full max-w-[1440px] mx-auto px-margin-mobile lg:px-margin-desktop py-space-4xl"><div class="grid grid-cols-1 md:grid-cols-12 gap-space-2xl mb-space-3xl"><div class="md:col-span-5 flex flex-col gap-space-md"><div class="flex items-center gap-space-sm"><img alt="VDG Brand Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Uu5Fqi-0DmIXy3Y3iobECKQYmjteRuE4QnhaoNj3wD4tP7UhUa4T1KA2ohQGEU6qhf-K_VpXEsm9OgpVHJYx9LYXLAFx8X1q-T7dkCAqgA0xa8B2LXvA72QJruJ5KtCAiJw9TDJ6Mo37z4V-MoKH6ZFy_vBlXoiW4l6gpNNf8kxzT6tGiGUHIlw-2U2aCjpmvSAl5QUYhqPZkfxnfZZC3qfb9dKToUq1aW6SMO_nOacRjvehG2edLldtmO"/><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight uppercase">VDG</span></div><p class="font-body-md text-body-md text-on-surface-variant max-w-md">Vodiy Digital Group turns ambitious ideas into digital products built around your business.</p><div class="flex items-center gap-space-md pt-space-xs"><a aria-label="GitHub" class="w-9 h-9 rounded bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined text-[18px]">terminal</span></a><a aria-label="LinkedIn" class="w-9 h-9 rounded bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined text-[18px]">business_center</span></a><a aria-label="X" class="w-9 h-9 rounded bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined text-[18px]">share</span></a><a aria-label="Dribbble" class="w-9 h-9 rounded bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined text-[18px]">palette</span></a></div></div><div class="md:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-space-xl"><div class="flex flex-col gap-space-md"><span class="font-label-mono-sm text-label-mono-sm text-outline uppercase tracking-wider">Services</span><ul class="flex flex-col gap-space-sm"><li class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface cursor-pointer transition-colors">Enterprise Architecture</li><li class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface cursor-pointer transition-colors">Product Engineering</li><li class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface cursor-pointer transition-colors">Design Systems</li><li class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface cursor-pointer transition-colors">Cloud Infrastructure</li></ul></div><div class="flex flex-col gap-space-md"><span class="font-label-mono-sm text-label-mono-sm text-outline uppercase tracking-wider">Company</span><ul class="flex flex-col gap-space-sm"><li class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface cursor-pointer transition-colors">Work</li><li class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface cursor-pointer transition-colors">About</li><li class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface cursor-pointer transition-colors">Process</li><li class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface cursor-pointer transition-colors">Careers</li></ul></div><div class="flex flex-col gap-space-md col-span-2 sm:col-span-1"><span class="font-label-mono-sm text-label-mono-sm text-outline uppercase tracking-wider">Connect</span><ul class="flex flex-col gap-space-sm"><li class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface cursor-pointer transition-colors">Start a Project</li><li class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface cursor-pointer transition-colors">General Inquiries</li><li class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface cursor-pointer transition-colors">Press &amp; Media</li><li class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface cursor-pointer transition-colors">Studio Locations</li></ul></div></div></div><div class="pt-space-xl border-t border-outline-variant/20 flex flex-col sm:flex-row items-center justify-between gap-space-md"><span class="font-label-mono-sm text-label-mono-sm text-outline">© 2025 Vodiy Digital Group LLC. All rights reserved.</span><div class="flex items-center gap-space-lg"><a class="font-label-mono-sm text-label-mono-sm text-outline hover:text-on-surface transition-colors" href="#">Privacy Policy</a><a class="font-label-mono-sm text-label-mono-sm text-outline hover:text-on-surface transition-colors" href="#">Terms of Service</a><a class="font-label-mono-sm text-label-mono-sm text-outline hover:text-on-surface transition-colors" href="#">System Status</a></div></div></div></footer></body></html>

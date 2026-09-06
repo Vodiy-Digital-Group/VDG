@@ -1,16 +1,10 @@
-const Footer = () => {
-  return (
-    <footer className="border-t border-border py-8 px-4">
-      <div className="container flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-        <p>© 2026 VDG. Barcha huquqlar himoyalangan.</p>
-        <div className="flex gap-6">
-          <a href="#xizmatlar" className="hover:text-foreground transition-colors">Xizmatlar</a>
-          <a href="#biz-haqimizda" className="hover:text-foreground transition-colors">Biz haqimizda</a>
-          <a href="#aloqa" className="hover:text-foreground transition-colors">Aloqa</a>
-        </div>
-      </div>
-    </footer>
-  );
-};
+const Footer = () => (
+  <footer className="border-t section-rule py-8">
+    <div className="page-canvas flex flex-col gap-4 text-sm text-[#71717a] sm:flex-row sm:items-center sm:justify-between">
+      <p>© 2026 VDG. Barcha huquqlar himoyalangan.</p>
+      <nav className="flex gap-2" aria-label="Footer navigation"><a className="focus-electric inline-flex h-11 items-center rounded-sm px-2 hover:text-[#f5f5f3]" href="#capabilities">Capabilities</a><a className="focus-electric inline-flex h-11 items-center rounded-sm px-2 hover:text-[#f5f5f3]" href="#studio">Studio</a><a className="focus-electric inline-flex h-11 items-center rounded-sm px-2 hover:text-[#f5f5f3]" href="#contact">Contact</a></nav>
+    </div>
+  </footer>
+);
 
 export default Footer;
