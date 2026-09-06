@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import vdgLogo from "@/assets/VDG-transparent-logo.png";
+import { gsap, useGSAP } from "@/animations/gsap";
+import { usePrefersReducedMotion } from "@/animations/usePrefersReducedMotion";
 
 const links = [
   { href: "#capabilities", label: "Capabilities" },
@@ -15,6 +17,19 @@ const Navbar = () => {
   const [activeHref, setActiveHref] = useState("#top");
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const reducedMotion = usePrefersReducedMotion();
+
+  useGSAP(
+    () => {
+      if (reducedMotion) {
+        gsap.set(headerRef.current, { autoAlpha: 1 });
+        return;
+      }
+      gsap.from(headerRef.current, { autoAlpha: 0, y: -14, duration: 0.65, ease: "power3.out", delay: 0.08 });
+    },
+    { scope: headerRef, dependencies: [reducedMotion] },
+  );
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -73,24 +88,23 @@ const Navbar = () => {
   }, [open]);
 
   const closeMenu = () => setOpen(false);
-  const headerSurface = scrolled || open ? "border-b section-rule bg-[#0b0b0d]/95 backdrop-blur-sm" : "border-b border-transparent bg-transparent";
+  const headerSurface = scrolled || open ? "nav-scrolled border-b section-rule" : "border-b border-transparent bg-transparent";
 
   return (
-    <header className={`sticky top-0 z-50 transition-colors duration-200 ${headerSurface}`}>
+    <header ref={headerRef} className={`site-nav sticky top-0 z-50 transition-colors duration-200 ${headerSurface}`}>
       <div className="page-canvas flex h-16 items-center justify-between gap-6 md:h-[72px]">
         <a href="#top" className="focus-electric flex h-11 items-center gap-3 rounded-sm" aria-label="VDG home" onClick={closeMenu}>
-          <img src={vdgLogo} alt="VDG" width={1254} height={1254} className="h-8 w-8 object-contain" />
-          <span className="font-display text-lg font-medium tracking-tight">VDG</span>
+          <img src={vdgLogo} alt="VDG" width={1254} height={1254} className="h-10 w-10 object-contain" />
         </a>
 
         <nav className="hidden items-center gap-7 md:flex" aria-label="Primary navigation">
           {links.map((link) => {
             const active = activeHref === link.href;
-            return <a key={link.href} href={link.href} aria-current={active ? "page" : undefined} className={`focus-electric relative inline-flex h-11 items-center rounded-sm px-1 text-sm transition-colors after:absolute after:bottom-1 after:left-1 after:h-px after:w-[calc(100%-0.5rem)] after:bg-[#4361ff] after:transition-transform ${active ? "text-[#f5f5f3] after:scale-x-100" : "text-[#a1a1aa] after:scale-x-0 hover:text-[#f5f5f3] hover:after:scale-x-100"}`}>{link.label}</a>;
+            return <a key={link.href} href={link.href} aria-current={active ? "page" : undefined} className={`focus-electric nav-link relative inline-flex h-11 items-center rounded-sm px-1 text-sm transition-colors after:absolute after:bottom-1 after:left-1 after:h-px after:w-[calc(100%-0.5rem)] after:bg-[#4361ff] after:transition-transform ${active ? "text-[#f5f5f3] after:scale-x-100" : "text-[#a1a1aa] after:scale-x-0 hover:text-[#f5f5f3] hover:after:scale-x-100"}`}>{link.label}</a>;
           })}
         </nav>
 
-        <a href="#contact" className="focus-electric hidden h-11 items-center border border-[#23232a] px-4 font-display text-sm font-medium text-[#f5f5f3] transition-colors hover:border-[#71717a] hover:bg-[#121216] sm:inline-flex">Discuss a project</a>
+        <a href="#contact" className="focus-electric nav-cta hidden h-11 items-center border border-[#343441] px-4 font-display text-sm font-medium text-[#f5f5f3] transition-colors hover:border-[#71717a] hover:bg-[#121216] sm:inline-flex">Discuss a project</a>
         <button ref={menuButtonRef} type="button" className="focus-electric inline-flex h-11 w-11 items-center justify-center rounded-sm text-foreground md:hidden" onClick={() => setOpen((value) => !value)} aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open} aria-controls="mobile-navigation">
           {open ? <X size={20} /> : <Menu size={20} />}
         </button>
