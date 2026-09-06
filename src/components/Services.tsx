@@ -1,65 +1,42 @@
-import { Smartphone, Globe, Brain, ShieldCheck, Zap, Users } from "lucide-react";
+import { useRef, useState } from "react";
+import { Plus } from "lucide-react";
+import { useScrollReveal } from "@/animations/useScrollReveal";
+import { useCardTilt } from "@/animations/useCardTilt";
 
-const services = [
-  {
-    icon: Smartphone,
-    title: "Mobil ilovalar",
-    description: "Foydalanuvchilarga qulay va zamonaviy mobil ilovalar yaratamiz.",
-  },
-  {
-    icon: Globe,
-    title: "Veb saytlar",
-    description: "Tez, chiroyli va samarali veb saytlar ishlab chiqamiz.",
-  },
-  {
-    icon: Brain,
-    title: "Sun'iy intellekt",
-    description: "AI texnologiyalari yordamida biznesingizni avtomatlashtiramiz.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Kiberxavfsizlik",
-    description: "Ma'lumotlaringiz xavfsizligini ta'minlaymiz.",
-  },
-  {
-    icon: Zap,
-    title: "Avtomatlashtirish",
-    description: "Ish jarayonlarini tezlashtirish va soddalashtirish yechimlari.",
-  },
-  {
-    icon: Users,
-    title: "IT konsalting",
-    description: "Texnologik maslahat va strategik rejalashtirish xizmati.",
-  },
+const capabilities = [
+  { title: "Digital products & platforms", description: "Product experiences and platforms shaped around the people and workflows they support.", detail: "Interface / service / platform" },
+  { title: "Systems & operations software", description: "Internal tools and connected systems that make operational work clearer.", detail: "Workflow / integration / operations" },
+  { title: "Product design systems", description: "Reusable design foundations for consistent product decisions and interfaces.", detail: "Tokens / components / guidance" },
+  { title: "Technical discovery & delivery strategy", description: "Practical framing that turns an uncertain brief into an informed delivery plan.", detail: "Questions / priorities / plan" },
 ];
 
 const Services = () => {
+  const [activeIndex, setActiveIndex] = useState<number | null>(0);
+  const sectionRef = useRef<HTMLElement>(null);
+  useScrollReveal(sectionRef);
+  useCardTilt(sectionRef);
+
   return (
-    <section id="xizmatlar" className="py-24 px-4">
-      <div className="container">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Bizning <span className="gradient-text">xizmatlar</span>
-          </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
-            Zamonaviy texnologiyalar asosida keng ko'lamli xizmatlar taqdim etamiz
-          </p>
+    <section ref={sectionRef} id="capabilities" data-ambient="indigo" className="site-section border-b section-rule py-20 md:py-32">
+      <div className="page-canvas">
+        <div data-reveal className="section-heading grid gap-6 border-b section-rule pb-7 md:grid-cols-2 md:items-end">
+          <div data-reveal-item><p className="section-label text-[#71717a]">01 / Capabilities</p><h2 className="font-display mt-3 text-3xl font-medium tracking-[-0.02em] md:text-[46px]">Where we enter the problem.</h2></div>
+          <p data-reveal-item className="max-w-lg text-[#a1a1aa]">A focused view of the work VDG can help frame, design, and deliver.</p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service, i) => (
-            <div
-              key={service.title}
-              className="group p-8 rounded-xl bg-card border border-border hover:border-primary/40 transition-all duration-300 hover:glow-shadow"
-              style={{ animationDelay: `${i * 0.1}s` }}
-            >
-              <div className="w-12 h-12 rounded-lg gradient-glow flex items-center justify-center mb-5">
-                <service.icon className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
-              <p className="text-muted-foreground leading-relaxed">{service.description}</p>
-            </div>
-          ))}
+        <div data-reveal className="capability-list border-b section-rule">
+          {capabilities.map((capability, index) => {
+            const isActive = activeIndex === index;
+            const detailId = `capability-detail-${index}`;
+            return (
+              <article key={capability.title} data-reveal-item data-tilt className={`capability-row glass-row ${isActive ? "capability-row--active" : ""}`} onMouseEnter={() => setActiveIndex(index)}>
+                <span className="interactive-sheen" aria-hidden="true" />
+                <span className="section-label capability-index">0{index + 1}</span>
+                <h3 className="capability-title"><button type="button" className="focus-electric capability-trigger" aria-expanded={isActive} aria-controls={detailId} onFocus={() => setActiveIndex(index)} onClick={() => setActiveIndex(isActive ? null : index)}>{capability.title}<Plus className="capability-plus" size={19} aria-hidden="true" /></button></h3>
+                <div id={detailId} className="capability-detail"><p>{capability.description}</p><div className="capability-schematic" aria-hidden="true"><span /><span /><span /></div><p className="section-label capability-meta">{capability.detail}</p></div>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

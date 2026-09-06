@@ -1,38 +1,113 @@
-import vdgLogo from "@/assets/vdg-logo.jpg";
-import { ArrowRight } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowDownRight, ArrowRight } from "lucide-react";
+import { gsap, SplitText, useGSAP } from "@/animations/gsap";
+import { motion } from "@/animations/motion";
+import { useMouseParallax } from "@/animations/useMouseParallax";
+import { usePrefersReducedMotion } from "@/animations/usePrefersReducedMotion";
+import HeroField from "./HeroField";
 
 const Hero = () => {
+  const heroRef = useRef<HTMLElement>(null);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const primaryCtaRef = useRef<HTMLAnchorElement>(null);
+  const [fieldVisible, setFieldVisible] = useState(false);
+  const reducedMotion = usePrefersReducedMotion();
+
+  useMouseParallax(heroRef, fieldVisible);
+
+  // The decorative field is only mounted while the hero is near the viewport.
+  useEffect(() => {
+    const hero = heroRef.current;
+    if (!hero) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setFieldVisible(entry.isIntersecting),
+      { rootMargin: "20% 0px" },
+    );
+    observer.observe(hero);
+    return () => observer.disconnect();
+  }, []);
+
+  useGSAP(
+    () => {
+      const headline = headlineRef.current;
+      const button = primaryCtaRef.current;
+      if (!headline) return;
+
+      let split: SplitText | undefined;
+      if (!reducedMotion) {
+        split = SplitText.create(headline, {
+          type: "words,chars",
+          wordsClass: "hero-word",
+          charsClass: "hero-char",
+          mask: "words",
+          aria: "auto",
+        });
+
+        gsap.timeline({ defaults: { ease: motion.ease } })
+          .from(".hero-eyebrow", { autoAlpha: 0, y: 14, duration: 0.5 })
+          .from(split.chars, {
+            autoAlpha: 0,
+            yPercent: 115,
+            rotationX: -55,
+            transformOrigin: "50% 100%",
+            stagger: 0.018,
+            duration: 0.78,
+          }, "-=0.2")
+          .from(".hero-support", { autoAlpha: 0, y: 20, duration: 0.62 }, "-=0.32")
+          .from(".hero-actions > *", { autoAlpha: 0, y: 16, duration: 0.5, stagger: 0.09 }, "-=0.34")
+          .from(".hero-meta > *", { autoAlpha: 0, y: 10, duration: 0.45, stagger: 0.08 }, "-=0.24");
+      } else {
+        gsap.set([".hero-eyebrow", headline, ".hero-support", ".hero-actions > *", ".hero-meta > *"], {
+          autoAlpha: 1,
+          clearProps: "transform",
+        });
+      }
+
+      if (!button || reducedMotion || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+        return () => split?.revert();
+      }
+
+      const moveX = gsap.quickTo(button, "x", { duration: 0.38, ease: "power3.out" });
+      const moveY = gsap.quickTo(button, "y", { duration: 0.38, ease: "power3.out" });
+      const move = (event: PointerEvent) => {
+        const rect = button.getBoundingClientRect();
+        moveX((event.clientX - rect.left - rect.width / 2) * 0.18);
+        moveY((event.clientY - rect.top - rect.height / 2) * 0.22);
+      };
+      const enter = () => gsap.to(button, { scale: 1.035, boxShadow: "0 0 34px rgba(67, 97, 255, 0.42)", duration: 0.24 });
+      const leave = () => gsap.to(button, { x: 0, y: 0, scale: 1, boxShadow: "0 0 22px rgba(67, 97, 255, 0.24)", duration: 0.46, ease: motion.ease });
+
+      button.addEventListener("pointermove", move, { passive: true });
+      button.addEventListener("pointerenter", enter);
+      button.addEventListener("pointerleave", leave);
+      return () => {
+        split?.revert();
+        button.removeEventListener("pointermove", move);
+        button.removeEventListener("pointerenter", enter);
+        button.removeEventListener("pointerleave", leave);
+      };
+    },
+    { scope: heroRef, dependencies: [reducedMotion] },
+  );
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4">
-      {/* Background glow effects */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-primary/10 blur-[120px]" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-accent/10 blur-[120px]" />
+    <section ref={heroRef} id="top" className="hero-section">
+      {fieldVisible && <HeroField />}
+      <div className="hero-vignette" aria-hidden="true" />
+      <div className="page-canvas hero-layout">
+        <div className="hero-copy" data-parallax-depth="-0.22">
+          <p className="hero-eyebrow section-label"><span />VDG / Independent product and engineering studio</p>
+          <h1 ref={headlineRef} className="hero-title font-display">Make the complex feel considered.</h1>
+          <p className="hero-support">VDG partners with teams to shape useful digital products, systems, and the decisions that connect them.</p>
+          <div className="hero-actions">
+            <a ref={primaryCtaRef} href="#contact" className="focus-electric hero-button hero-button--primary">Discuss a project <ArrowRight size={17} /></a>
+            <a href="#capabilities" className="focus-electric hero-button hero-button--secondary">Explore capabilities <ArrowDownRight size={17} /></a>
+          </div>
+        </div>
 
-      <div className="container relative z-10 flex flex-col items-center text-center gap-8">
-
-        <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight leading-tight animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
-          Texnologiya bilan <br />
-          <span className="gradient-text">hayotni osonlashtiring</span>
-        </h1>
-
-        <p className="max-w-2xl text-lg sm:text-xl text-muted-foreground animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
-          VDG — zamonaviy yechimlar orqali kundalik hayotingizni soddalashtirish va samaradorlikni oshirishga yordam beruvchi texnologik kompaniya.
-        </p>
-
-        <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
-          <a
-            href="#xizmatlar"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-lg gradient-bg font-semibold text-primary-foreground transition-all hover:opacity-90 glow-shadow"
-          >
-            Xizmatlarimiz
-            <ArrowRight className="w-5 h-5" />
-          </a>
-          <a
-            href="#aloqa"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-lg border border-border font-semibold text-foreground transition-all hover:bg-secondary"
-          >
-            Bog'lanish
-          </a>
+        <div className="hero-meta section-label" data-parallax-depth="0.18">
+          <span>Based in Andijan, working where the work needs to happen.</span>
+          <span aria-hidden="true">01 — FIELD ASSEMBLY / NOT TO SCALE</span>
         </div>
       </div>
     </section>
