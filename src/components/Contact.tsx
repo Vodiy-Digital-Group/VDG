@@ -1,21 +1,92 @@
 import { Mail, Phone, MapPin, Send, Loader2 } from "lucide-react";
-import { useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import emailjs from '@emailjs/browser';
 import { useScrollReveal } from "@/animations/useScrollReveal";
+
+const emailjsConfig = {
+  serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID?.trim(),
+  templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID?.trim(),
+  publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY?.trim(),
+  recaptchaSiteKey: import.meta.env.VITE_RECAPTCHA_SITE_KEY?.trim(),
+};
+
+declare global {
+  interface Window {
+    grecaptcha?: {
+      render: (container: HTMLElement, parameters: Record<string, unknown>) => number;
+      reset: (widgetId?: number) => void;
+    };
+  }
+}
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [isSending, setIsSending] = useState(false);
   const [status, setStatus] = useState<{ type: "success" | "error"; message: string } | null>(null);
+  const [captchaToken, setCaptchaToken] = useState("");
+  const [isCaptchaReady, setIsCaptchaReady] = useState(false);
   
   const formRef = useRef<HTMLFormElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
+  const captchaRef = useRef<HTMLDivElement>(null);
+  const captchaWidgetId = useRef<number | null>(null);
   const messageLength = formData.message.length;
   useScrollReveal(sectionRef, { stagger: 0.09 });
 
-    const handleSubmit = async (e: React.FormEvent) => {
+  useEffect(() => {
+    const siteKey = emailjsConfig.recaptchaSiteKey;
+    if (!siteKey) return;
+
+    const renderCaptcha = () => {
+      if (!captchaRef.current || !window.grecaptcha || captchaWidgetId.current !== null) return;
+
+      captchaWidgetId.current = window.grecaptcha.render(captchaRef.current, {
+        sitekey: siteKey,
+        theme: "dark",
+        callback: (token: string) => setCaptchaToken(token),
+        "expired-callback": () => setCaptchaToken(""),
+        "error-callback": () => {
+          setCaptchaToken("");
+          setStatus({ type: "error", message: "Spam protection could not load. Please refresh the page and try again." });
+        },
+      });
+      setIsCaptchaReady(true);
+    };
+
+    if (window.grecaptcha) {
+      renderCaptcha();
+      return;
+    }
+
+    const existingScript = document.querySelector<HTMLScriptElement>('script[src^="https://www.google.com/recaptcha/api.js"]');
+    if (existingScript) {
+      existingScript.addEventListener("load", renderCaptcha);
+      return () => existingScript.removeEventListener("load", renderCaptcha);
+    }
+
+    const script = document.createElement("script");
+    script.src = "https://www.google.com/recaptcha/api.js?render=explicit";
+    script.async = true;
+    script.defer = true;
+    script.addEventListener("load", renderCaptcha);
+    document.head.appendChild(script);
+
+    return () => script.removeEventListener("load", renderCaptcha);
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formRef.current) return;
+
+    if (!emailjsConfig.serviceId || !emailjsConfig.templateId || !emailjsConfig.publicKey || !emailjsConfig.recaptchaSiteKey) {
+      setStatus({ type: "error", message: "The contact form is not configured yet. Please email us directly." });
+      return;
+    }
+
+    if (!captchaToken) {
+      setStatus({ type: "error", message: "Please complete the spam protection check before sending your message." });
+      return;
+    }
 
     setIsSending(true);
     setStatus(null);
@@ -38,16 +109,21 @@ const Contact = () => {
 
     try {
       await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_2oydne5",
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_n1f6tij",
+        emailjsConfig.serviceId,
+        emailjsConfig.templateId,
         {
           name: formData.name,
           email: formData.email,
           message: formData.message,
-          time: currentTime,       
+          time: currentTime,
+          from_name: formData.name,
+          from_email: formData.email,
+          reply_to: formData.email,
+          source: "VDG website contact form",
+          "g-recaptcha-response": captchaToken,
         },
         {
-          publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "fUCivuipQ9pM1RZOc",
+          publicKey: emailjsConfig.publicKey,
         }
       );
 
@@ -58,11 +134,13 @@ const Contact = () => {
 
       setFormData({ name: "", email: "", message: "" });
       formRef.current.reset();
+      setCaptchaToken("");
+      if (captchaWidgetId.current !== null) window.grecaptcha?.reset(captchaWidgetId.current);
 
       setTimeout(() => setStatus(null), 6000);
 
     } catch (error) {
-      console.error("EmailJS xatosi:", error);
+      console.error("EmailJS submission failed:", error);
       setStatus({ 
         type: "error", 
         message: "Something went wrong. Please check your connection and try again."
@@ -91,8 +169,8 @@ const Contact = () => {
             </div>
 
             {[
-              { icon: Phone, label: "Phone", value: "+998 91 001 22 17" },
-              { icon: Mail, label: "Email", value: "vodiydigital@gmail.com" },
+              // { icon: Phone, label: "Phone", value: "+998 91 001 22 17" }, TODO: later add phone number
+              { icon: Mail, label: "Email", value: "contact@vodiydigital.com" },
               { icon: MapPin, label: "Location", value: "Andijan, Uzbekistan" },
             ].map((item) => (
               <div key={item.label} className="contact-item flex items-start gap-4">
@@ -157,9 +235,25 @@ const Contact = () => {
               </div>
             </div>
 
+            <div className="mt-5 space-y-2">
+              <div ref={captchaRef} aria-label="Spam protection" />
+              {!isCaptchaReady && (
+                <p className="text-xs text-[#71717a]">
+                  {emailjsConfig.recaptchaSiteKey ? "Loading spam protection…" : "Spam protection is not configured."}
+                </p>
+              )}
+              <p className="text-xs leading-5 text-[#71717a]">
+                This form is protected by reCAPTCHA. Google’s{' '}
+                <a className="underline underline-offset-2 hover:text-[#f5f5f3]" href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Privacy Policy</a>{' '}
+                and{' '}
+                <a className="underline underline-offset-2 hover:text-[#f5f5f3]" href="https://policies.google.com/terms" target="_blank" rel="noreferrer">Terms of Service</a>{' '}
+                apply.
+              </p>
+            </div>
+
             <button
               type="submit"
-              disabled={isSending}
+              disabled={isSending || !captchaToken}
               className="focus-electric glow-button mt-5 inline-flex h-12 w-full items-center justify-center gap-2 bg-[#4361ff] px-5 font-display text-sm font-medium text-[#f5f5f3] transition-colors hover:bg-[#5a75ff] disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
             >
               {isSending ? (
