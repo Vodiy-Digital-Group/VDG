@@ -179,10 +179,8 @@ const Contact = () => {
               <p
                 role="status"
                 aria-live="polite"
-                className={`mt-5 border p-3 text-sm font-medium ${
-                  status.type === "success" 
-                    ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400" 
-                    : "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
+                className={`mt-5 border border-[var(--outline)] bg-[var(--surface-200)] p-3 text-sm font-medium ${
+                  status.type === "success" ? "text-[var(--text-primary)]" : "text-[var(--text-secondary)]"
                 }`}
               >
                 {status.message}
