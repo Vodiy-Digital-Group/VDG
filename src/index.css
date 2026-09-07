@@ -823,8 +823,6 @@
 .valley-background { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; background: var(--void); }
 .valley-background canvas { display: block; width: 100% !important; height: 100% !important; opacity: .78; }
 .valley-scrim { position: absolute; inset: 0; background: linear-gradient(90deg, var(--void) 0%, rgba(11,11,13,.76) 18%, transparent 50%, rgba(11,11,13,.68) 82%, var(--void) 100%), linear-gradient(180deg, rgba(11,11,13,.48), transparent 34%, var(--void) 100%); }
-.valley-fallback { position: absolute; inset: 12% -14% 0; opacity: .42; background: linear-gradient(145deg, transparent 26%, var(--accent) 26.2% 26.55%, transparent 26.75% 47%, var(--accent) 47.2% 47.55%, transparent 47.75% 100%), linear-gradient(25deg, transparent 32%, rgba(67,97,255,.28) 32.2% 32.55%, transparent 32.75% 52%, rgba(67,97,255,.28) 52.2% 52.55%, transparent 52.75%); mask-image: linear-gradient(180deg, transparent, #000 22%, #000 80%, transparent); }
-
 .page-canvas { width: min(100% - 40px, 1440px); }
 .site-section { background: var(--surface-100); border-color: var(--outline); }
 .site-section::before { opacity: 1; background-image: repeating-linear-gradient(90deg, transparent 0, transparent calc(8.333% - 1px), rgba(245,245,243,.035) calc(8.333% - 1px), rgba(245,245,243,.035) 8.333%); }

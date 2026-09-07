@@ -7,7 +7,7 @@ export const VALLEY_TERRAIN = {
   height: 4.6,
   opacity: 0.2,
   glowOpacity: 0.18,
-  orbitDuration: 26,
+  forwardSpeed: 1.15,
   parallaxRange: 0.12,
 } as const;
 
@@ -69,4 +69,18 @@ export const createValleyGeometry = (segments: number) => {
   }
 
   return { positions, indices: new Uint32Array(indices) };
+};
+
+/**
+ * Advances the terrain field beneath a single, connected grid. Keeping the
+ * geometry whole guarantees that the valley cannot open a seam while moving.
+ */
+export const updateValleyGeometryHeights = (positions: Float32Array, travel: number) => {
+  const { width, depth, height } = VALLEY_TERRAIN;
+  for (let offset = 0; offset < positions.length; offset += 3) {
+    positions[offset + 1] = valleyHeight(
+      positions[offset] / (width / 2),
+      (positions[offset + 2] - travel) / (depth / 2),
+    ) * height;
+  }
 };

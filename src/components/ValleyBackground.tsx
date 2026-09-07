@@ -1,26 +1,22 @@
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { Group } from "three";
+import type { BufferAttribute, Group } from "three";
 import { gsap, useGSAP } from "@/animations/gsap";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { VALLEY_TERRAIN, createValleyGeometry } from "@/lib/terrain";
+import { VALLEY_TERRAIN, createValleyGeometry, updateValleyGeometryHeights } from "@/lib/terrain";
 import { usePrefersReducedMotion } from "@/animations/usePrefersReducedMotion";
 
 type TerrainProps = { mobile: boolean; reducedMotion: boolean };
 
 const Terrain = ({ mobile, reducedMotion }: TerrainProps) => {
   const group = useRef<Group>(null);
-  const motion = useRef({ orbit: 0, pointerX: 0, pointerY: 0 });
-  const geometry = useMemo(() => createValleyGeometry(mobile ? VALLEY_TERRAIN.mobileSegments : VALLEY_TERRAIN.desktopSegments), [mobile]);
+  const positionAttribute = useRef<BufferAttribute>(null);
+  const motion = useRef({ pointerX: 0, pointerY: 0, travel: 0 });
+  const segments = mobile ? VALLEY_TERRAIN.mobileSegments : VALLEY_TERRAIN.desktopSegments;
+  const geometry = useMemo(() => createValleyGeometry(segments), [segments]);
 
   useGSAP(() => {
     if (reducedMotion) return;
-    const orbit = gsap.to(motion.current, {
-      orbit: Math.PI * 2,
-      duration: VALLEY_TERRAIN.orbitDuration,
-      ease: "none",
-      repeat: -1,
-    });
     const pointerX = gsap.quickTo(motion.current, "pointerX", { duration: 1.25, ease: "power3.out" });
     const pointerY = gsap.quickTo(motion.current, "pointerY", { duration: 1.25, ease: "power3.out" });
     const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
@@ -31,33 +27,35 @@ const Terrain = ({ mobile, reducedMotion }: TerrainProps) => {
     };
     window.addEventListener("pointermove", onMove, { passive: true });
     return () => {
-      orbit.kill();
       window.removeEventListener("pointermove", onMove);
     };
   }, { dependencies: [reducedMotion] });
 
-  useFrame(() => {
+  useFrame((_, delta) => {
     if (!group.current) return;
-    group.current.rotation.y = Math.sin(motion.current.orbit) * 0.075 + motion.current.pointerX;
+    group.current.rotation.y = motion.current.pointerX;
     group.current.rotation.x = -0.42 + motion.current.pointerY * 0.42;
-    group.current.position.y = Math.cos(motion.current.orbit) * 0.12 - 1.25;
+    group.current.position.y = -1.25;
+
+    const attribute = positionAttribute.current;
+    if (reducedMotion || !attribute) return;
+    motion.current.travel += delta * VALLEY_TERRAIN.forwardSpeed;
+    updateValleyGeometryHeights(attribute.array as Float32Array, motion.current.travel);
+    attribute.needsUpdate = true;
   });
 
   return (
-    <group ref={group} position={[0, -1.25, -2]}>
+    <group ref={group} position={[0, -1.25, -2]} scale={mobile ? [0.55, 0.9, 1] : [1, 1, 1]}>
       <mesh>
         <bufferGeometry>
-          <bufferAttribute attach="attributes-position" args={[geometry.positions, 3]} />
+          <bufferAttribute
+            ref={positionAttribute}
+            attach="attributes-position"
+            args={[geometry.positions, 3]}
+          />
           <bufferAttribute attach="index" args={[geometry.indices, 1]} />
         </bufferGeometry>
-        <meshBasicMaterial color="#4361FF" transparent opacity={VALLEY_TERRAIN.opacity} wireframe depthWrite={false} />
-      </mesh>
-      <mesh scale={[1.005, 1.005, 1.005]}>
-        <bufferGeometry>
-          <bufferAttribute attach="attributes-position" args={[geometry.positions, 3]} />
-          <bufferAttribute attach="index" args={[geometry.indices, 1]} />
-        </bufferGeometry>
-        <meshBasicMaterial color="#4361FF" transparent opacity={VALLEY_TERRAIN.glowOpacity} wireframe depthWrite={false} />
+        <meshBasicMaterial color="#4361FF" transparent opacity={mobile ? 0.44 : VALLEY_TERRAIN.opacity + VALLEY_TERRAIN.glowOpacity} wireframe depthWrite={false} />
       </mesh>
     </group>
   );
@@ -90,13 +88,14 @@ const ValleyBackground = () => {
 
   return (
     <div ref={wrapperRef} className="valley-background" aria-hidden="true">
-      {mobile ? (
-        <div className="valley-fallback" />
-      ) : (
-        <Canvas dpr={[1, 1.5]} frameloop={visible ? "always" : "never"} camera={{ position: [0, 3.8, 11], fov: 48 }} gl={{ alpha: true, antialias: false, powerPreference: "low-power" }}>
-          <Terrain mobile={mobile} reducedMotion={reducedMotion} />
-        </Canvas>
-      )}
+      <Canvas
+        dpr={mobile ? [1, 1] : [1, 1.5]}
+        frameloop={visible ? "always" : "never"}
+        camera={mobile ? { position: [0, 4.8, 15.5], fov: 70 } : { position: [0, 3.8, 11], fov: 48 }}
+        gl={{ alpha: true, antialias: false, powerPreference: "low-power" }}
+      >
+        <Terrain mobile={mobile} reducedMotion={reducedMotion} />
+      </Canvas>
       <div className="valley-scrim" />
     </div>
   );
