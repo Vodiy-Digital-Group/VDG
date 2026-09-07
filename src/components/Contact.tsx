@@ -10,12 +10,18 @@ const emailjsConfig = {
   recaptchaSiteKey: import.meta.env.VITE_RECAPTCHA_SITE_KEY?.trim(),
 };
 
+const recaptchaScriptId = "vdg-recaptcha-api";
+const recaptchaOnloadCallback = "__vdgRecaptchaOnload";
+
+type CaptchaState = "loading" | "ready" | "error";
+
 declare global {
   interface Window {
     grecaptcha?: {
       render: (container: HTMLElement, parameters: Record<string, unknown>) => number;
       reset: (widgetId?: number) => void;
     };
+    __vdgRecaptchaOnload?: () => void;
   }
 }
 
@@ -24,7 +30,7 @@ const Contact = () => {
   const [isSending, setIsSending] = useState(false);
   const [status, setStatus] = useState<{ type: "success" | "error"; message: string } | null>(null);
   const [captchaToken, setCaptchaToken] = useState("");
-  const [isCaptchaReady, setIsCaptchaReady] = useState(false);
+  const [captchaState, setCaptchaState] = useState<CaptchaState>("loading");
   
   const formRef = useRef<HTMLFormElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
@@ -35,43 +41,79 @@ const Contact = () => {
 
   useEffect(() => {
     const siteKey = emailjsConfig.recaptchaSiteKey;
-    if (!siteKey) return;
-
-    const renderCaptcha = () => {
-      if (!captchaRef.current || !window.grecaptcha || captchaWidgetId.current !== null) return;
-
-      captchaWidgetId.current = window.grecaptcha.render(captchaRef.current, {
-        sitekey: siteKey,
-        theme: "dark",
-        callback: (token: string) => setCaptchaToken(token),
-        "expired-callback": () => setCaptchaToken(""),
-        "error-callback": () => {
-          setCaptchaToken("");
-          setStatus({ type: "error", message: "Spam protection could not load. Please refresh the page and try again." });
-        },
-      });
-      setIsCaptchaReady(true);
-    };
-
-    if (window.grecaptcha) {
-      renderCaptcha();
+    if (!siteKey) {
+      setCaptchaState("error");
       return;
     }
 
-    const existingScript = document.querySelector<HTMLScriptElement>('script[src^="https://www.google.com/recaptcha/api.js"]');
-    if (existingScript) {
-      existingScript.addEventListener("load", renderCaptcha);
-      return () => existingScript.removeEventListener("load", renderCaptcha);
+    let isMounted = true;
+
+    const showCaptchaError = () => {
+      if (!isMounted) return;
+
+      setCaptchaState("error");
+      setCaptchaToken("");
+      setStatus({
+        type: "error",
+        message: "Spam protection could not start. Please refresh the page or email us directly.",
+      });
+    };
+
+    const renderCaptcha = () => {
+      if (!isMounted || !captchaRef.current || captchaWidgetId.current !== null) return;
+
+      if (!window.grecaptcha) {
+        showCaptchaError();
+        return;
+      }
+
+      try {
+        captchaWidgetId.current = window.grecaptcha.render(captchaRef.current, {
+          sitekey: siteKey,
+          theme: "dark",
+          callback: (token: string) => setCaptchaToken(token),
+          "expired-callback": () => setCaptchaToken(""),
+          "error-callback": showCaptchaError,
+        });
+        setCaptchaState("ready");
+      } catch (error) {
+        console.error("reCAPTCHA could not be rendered:", error);
+        showCaptchaError();
+      }
+    };
+
+    // Google calls this after every reCAPTCHA dependency has loaded. Using this
+    // callback avoids a race where the script's load event fires before the API
+    // is ready to render a widget.
+    window[recaptchaOnloadCallback] = renderCaptcha;
+
+    const script = document.getElementById(recaptchaScriptId) as HTMLScriptElement | null;
+
+    if (window.grecaptcha) {
+      renderCaptcha();
+    } else if (!script) {
+      const recaptchaScript = document.createElement("script");
+      recaptchaScript.id = recaptchaScriptId;
+      recaptchaScript.src = `https://www.google.com/recaptcha/api.js?onload=${recaptchaOnloadCallback}&render=explicit`;
+      recaptchaScript.async = true;
+      recaptchaScript.defer = true;
+      recaptchaScript.addEventListener("error", showCaptchaError, { once: true });
+      document.head.appendChild(recaptchaScript);
+    } else {
+      script.addEventListener("error", showCaptchaError, { once: true });
     }
 
-    const script = document.createElement("script");
-    script.src = "https://www.google.com/recaptcha/api.js?render=explicit";
-    script.async = true;
-    script.defer = true;
-    script.addEventListener("load", renderCaptcha);
-    document.head.appendChild(script);
+    const timeoutId = window.setTimeout(() => {
+      if (!window.grecaptcha || captchaWidgetId.current === null) showCaptchaError();
+    }, 12000);
 
-    return () => script.removeEventListener("load", renderCaptcha);
+    return () => {
+      isMounted = false;
+      window.clearTimeout(timeoutId);
+      if (window[recaptchaOnloadCallback] === renderCaptcha) {
+        delete window[recaptchaOnloadCallback];
+      }
+    };
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -237,10 +279,13 @@ const Contact = () => {
 
             <div className="mt-5 space-y-2">
               <div ref={captchaRef} aria-label="Spam protection" />
-              {!isCaptchaReady && (
+              {captchaState === "loading" && (
                 <p className="text-xs text-[#71717a]">
-                  {emailjsConfig.recaptchaSiteKey ? "Loading spam protection…" : "Spam protection is not configured."}
+                  Loading spam protection…
                 </p>
+              )}
+              {captchaState === "error" && !status && (
+                <p className="text-xs text-[#f5f5f3]">Spam protection is not configured.</p>
               )}
               <p className="text-xs leading-5 text-[#71717a]">
                 This form is protected by reCAPTCHA. Google’s{' '}
@@ -253,7 +298,7 @@ const Contact = () => {
 
             <button
               type="submit"
-              disabled={isSending || !captchaToken}
+              disabled={isSending || captchaState !== "ready" || !captchaToken}
               className="focus-electric glow-button mt-5 inline-flex h-12 w-full items-center justify-center gap-2 bg-[#4361ff] px-5 font-display text-sm font-medium text-[#f5f5f3] transition-colors hover:bg-[#5a75ff] disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
             >
               {isSending ? (
