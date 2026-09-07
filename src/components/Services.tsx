@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { Plus } from "lucide-react";
 import { useScrollReveal } from "@/animations/useScrollReveal";
 import { useCardTilt } from "@/animations/useCardTilt";
+import { MetricStat, SectionFrame } from "@/components/system";
 
 const capabilities = [
   { title: "Digital products & platforms", description: "Product experiences and platforms shaped around the people and workflows they support.", detail: "Interface / service / platform" },
@@ -19,10 +20,7 @@ const Services = () => {
   return (
     <section ref={sectionRef} id="capabilities" data-ambient="indigo" className="site-section border-b section-rule py-20 md:py-32">
       <div className="page-canvas">
-        <div data-reveal className="section-heading grid gap-6 border-b section-rule pb-7 md:grid-cols-2 md:items-end">
-          <div data-reveal-item><p className="section-label text-[#71717a]">01 / Capabilities</p><h2 className="font-display mt-3 text-3xl font-medium tracking-[-0.02em] md:text-[46px]">Where we enter the problem.</h2></div>
-          <p data-reveal-item className="max-w-lg text-[#a1a1aa]">A focused view of the work VDG can help frame, design, and deliver.</p>
-        </div>
+        <div data-reveal><SectionFrame index="01 / Capabilities" title="Where we enter the problem."><p data-reveal-item>A focused view of the work VDG can help frame, design, and deliver.</p></SectionFrame></div>
 
         <div data-reveal className="capability-list border-b section-rule">
           {capabilities.map((capability, index) => {
@@ -37,6 +35,11 @@ const Services = () => {
               </article>
             );
           })}
+        </div>
+        <div data-reveal className="metric-stat-grid" aria-label="VDG capabilities at a glance">
+          <MetricStat value="04" label="Core capability areas" />
+          <MetricStat value="01" label="Integrated delivery partner" />
+          <MetricStat value="∞" label="Room for durable systems" />
         </div>
       </div>
     </section>

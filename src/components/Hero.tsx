@@ -1,31 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { ArrowDownRight, ArrowRight } from "lucide-react";
 import { gsap, SplitText, useGSAP } from "@/animations/gsap";
 import { motion } from "@/animations/motion";
-import { useMouseParallax } from "@/animations/useMouseParallax";
 import { usePrefersReducedMotion } from "@/animations/usePrefersReducedMotion";
-import HeroField from "./HeroField";
 
 const Hero = () => {
   const heroRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const primaryCtaRef = useRef<HTMLAnchorElement>(null);
-  const [fieldVisible, setFieldVisible] = useState(false);
   const reducedMotion = usePrefersReducedMotion();
-
-  useMouseParallax(heroRef, fieldVisible);
-
-  // The decorative field is only mounted while the hero is near the viewport.
-  useEffect(() => {
-    const hero = heroRef.current;
-    if (!hero) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setFieldVisible(entry.isIntersecting),
-      { rootMargin: "20% 0px" },
-    );
-    observer.observe(hero);
-    return () => observer.disconnect();
-  }, []);
 
   useGSAP(
     () => {
@@ -92,10 +75,9 @@ const Hero = () => {
 
   return (
     <section ref={heroRef} id="top" className="hero-section">
-      {fieldVisible && <HeroField />}
       <div className="hero-vignette" aria-hidden="true" />
       <div className="page-canvas hero-layout">
-        <div className="hero-copy" data-parallax-depth="-0.22">
+        <div className="hero-copy">
           <p className="hero-eyebrow section-label"><span />VDG / Independent product and engineering studio</p>
           <h1 ref={headlineRef} className="hero-title font-display">Make the complex feel considered.</h1>
           <p className="hero-support">VDG partners with teams to shape useful digital products, systems, and the decisions that connect them.</p>
@@ -105,10 +87,6 @@ const Hero = () => {
           </div>
         </div>
 
-        <div className="hero-meta section-label" data-parallax-depth="0.18">
-          <span>Based in Andijan, working where the work needs to happen.</span>
-          <span aria-hidden="true">01 — FIELD ASSEMBLY / NOT TO SCALE</span>
-        </div>
       </div>
     </section>
   );
